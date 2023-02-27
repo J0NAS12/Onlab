@@ -345,9 +345,12 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/create_map.cs"
-"Assets/move.cs"
-"Assets/player_move.cs"
+"Assets/Scripts/Bullet.cs"
+"Assets/Scripts/CharacterShooting.cs"
+"Assets/Scripts/create_map.cs"
+"Assets/Scripts/Gun.cs"
+"Assets/Scripts/move.cs"
+"Assets/Scripts/Target.cs"
 -langversion:9.0
 
 /deterministic
