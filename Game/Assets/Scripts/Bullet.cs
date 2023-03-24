@@ -9,7 +9,8 @@ public class Bullet : MonoBehaviour {
         // the 'Target' component
          if(target != null) {
              target.Hit(damage);
-             Destroy(gameObject); // Deletes the round
+             Debug.Log(target.gameObject.name);
+             Destroy(gameObject);
          }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class Target : MonoBehaviour {
+    public bool destroyable = true;
     public float health;
 
     void Update() {
@@ -11,6 +12,8 @@ public class Target : MonoBehaviour {
 
     /// 'Hits' the target for a certain amount of damage
     public void Hit(float damage) {
-        health -= damage;
+        if(destroyable){
+            health -= damage;
+        }
     }
 }
