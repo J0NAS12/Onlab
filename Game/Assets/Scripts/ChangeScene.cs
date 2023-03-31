@@ -6,5 +6,6 @@ public class ChangeScene : MonoBehaviour
 {
     public void GameScene(){
             SceneManager.LoadScene("Game");
+            Debug.Log(GameValues.PlayerCounter);
     }
 }

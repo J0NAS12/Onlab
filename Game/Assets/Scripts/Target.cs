@@ -1,12 +1,17 @@
+using TMPro;
 using UnityEngine;
 
 public class Target : MonoBehaviour {
     public bool destroyable = true;
     public float health;
 
+
+
     void Update() {
         if(health <= 0) {
             Destroy(gameObject);
+            GameValues.spidersLeft--;
+
         }
     }
 

@@ -10,9 +10,5 @@ public class CharacterShooting : MonoBehaviour {
         if(Input.GetKeyDown(shootKey)) {
             gun.Shoot();
         }
-
-        if(Input.GetKeyDown(reloadKey)) {
-            gun.Reload();
-        }
     }
 }

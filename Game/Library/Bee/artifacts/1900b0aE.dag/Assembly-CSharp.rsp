@@ -349,6 +349,7 @@
 "Assets/Scripts/ChangeScene.cs"
 "Assets/Scripts/CharacterShooting.cs"
 "Assets/Scripts/CreateMap.cs"
+"Assets/Scripts/GameValues.cs"
 "Assets/Scripts/Gun.cs"
 "Assets/Scripts/IntVector2.cs"
 "Assets/Scripts/Maze.cs"
@@ -363,6 +364,7 @@
 "Assets/Scripts/MazeWall.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/Target.cs"
+"Assets/Scripts/updateStats.cs"
 -langversion:9.0
 
 /deterministic
