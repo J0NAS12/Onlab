@@ -1257,8 +1257,11 @@ GameObject:
   - component: {fileID: 5336020352895788908}
   - component: {fileID: 5586683726996861286}
   - component: {fileID: 5586683726996861284}
+  - component: {fileID: 7847502777419235220}
   - component: {fileID: 5586683726996861281}
   - component: {fileID: 5586683726996861280}
+  - component: {fileID: 6490141605073143406}
+  - component: {fileID: 3441614180476237128}
   m_Layer: 0
   m_Name: spider_black
   m_TagString: Untagged
@@ -1309,10 +1312,24 @@ BoxCollider:
   m_GameObject: {fileID: 4703599219601833430}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.4, y: 2, z: 3.4}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &7847502777419235220
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703599219601833430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.9592524
+  m_Height: 3.9185047
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1579888, z: 0.41742107}
 --- !u!114 &5586683726996861281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1360,38 @@ MonoBehaviour:
   gun: {fileID: 5586683727715808499}
   shootKey: 110
   reloadKey: 109
+--- !u!95 &6490141605073143406
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703599219601833430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: a96ff394aa19efb4bbcd55446aefd7db, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4f09c009e179cb047b6b4026e7ca7af3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3441614180476237128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703599219601833430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa70149127b92d441bf81106c4056949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4943811042856104599
 GameObject:
   m_ObjectHideFlags: 0
