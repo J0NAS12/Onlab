@@ -9,7 +9,10 @@ public class GameValues : MonoBehaviour
 {
     public static int PlayerCounter = 2;
 
+    public static bool startGame = false;
     public static bool listHasChanged = false;
+
+    public static bool playersChanged = false;
 
     public static WebSocket socket;
     public static int spidersLeft = 2;

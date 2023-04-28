@@ -27,12 +27,20 @@ public class LobbyUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lobbyName.text = GameValues.me.lobbyName;
-        string list = "Players:\n";
-        foreach(var p in GameValues.lobbyPlayers){
-            list += p.name + "\n";
+        if(GameValues.startGame)
+        {
+            GameValues.startGame = false;
+            SceneManager.LoadScene("Game");
         }
-        playersList.text = list;
+        if(GameValues.playersChanged){
+            GameValues.playersChanged = false;
+            lobbyName.text = GameValues.me.lobbyName;
+            string list = "Players:\n";
+            foreach(var p in GameValues.lobbyPlayers){
+                list += p.name + "\n";
+            }
+            playersList.text = list;
+        }
     }
 
     public void StartGame(){

@@ -35,6 +35,7 @@ public class SocketManager : MonoBehaviour
                             var lobbyData = JsonUtility.FromJson<LobbyData>(e.Data);
                             GameValues.me.lobbyID = lobbyData.lobbyID;
                             GameValues.lobbyPlayers = (lobbyData.players);
+                            GameValues.playersChanged = true;
                             break;
                         case "getLobbies":
                             var lobbiesData = JsonUtility.FromJson<LobbyList>(e.Data);
@@ -44,14 +45,17 @@ public class SocketManager : MonoBehaviour
                         case "updateLobby":
                             var updated = JsonUtility.FromJson<LobbyData>(e.Data);
                             GameValues.lobbyPlayers = updated.players;
+                            GameValues.me.index = GameValues.lobbyPlayers.IndexOf(GameValues.lobbyPlayers.Find(x=>x.id == GameValues.me.id));
+                            GameValues.playersChanged = true;
                             break;
                         case "id":
                             GameValues.me.id = (string)jsonObj["id"];
                             break;
                         case "startGame":
-                            GameValues.maze = JsonUtility.FromJson<MazeData>(e.Data);
+                            var data = JsonUtility.FromJson<LobbyData>(e.Data);
+                            GameValues.maze = data.maze;
                             Debug.Log("start game");
-                            SceneManager.LoadScene("Game");
+                            GameValues.startGame = true;
                             break;
                         default:
                             Debug.Log("no method: " + (string)jsonObj["method"]);

@@ -18,7 +18,7 @@ public class CreateMap : MonoBehaviour
     void Start()
     {
         GameValues.spidersLeft = GameValues.PlayerCounter;
-        if (GameValues.maze.cells == null)
+        if (GameValues.maze.cells == null || GameValues.maze.cells.Count == 0)
         {
             mazeInstance = Instantiate(mazePrefab) as Maze;
             mazeInstance.Generate();
@@ -31,6 +31,7 @@ public class CreateMap : MonoBehaviour
                         south = item.GetEdge(MazeDirection.South).Type,
                         east = item.GetEdge(MazeDirection.East).Type,
                         west = item.GetEdge(MazeDirection.West).Type,
+                        room = item.room.settingsIndex,
                         position = item.coordinates
                     };
                     GameValues.maze.cells.Add(data);
@@ -51,10 +52,10 @@ public class CreateMap : MonoBehaviour
         }
 
 
-        for (int i = 0; i < GameValues.PlayerCounter; i++)
+        for (int i = 0; i < GameValues.lobbyPlayers.Count; i++)
         {
             GameObject spider;
-            if (i == 0)
+            if (i == GameValues.me.index)
             {
              spider = Instantiate(me) as GameObject;
                 socketManager.player = spider;

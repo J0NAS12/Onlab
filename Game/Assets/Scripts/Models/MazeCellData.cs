@@ -7,6 +7,7 @@ using UnityEngine;
 public struct MazeCellData
 {
     public IntVector2 position;
+    public int room;
     public int north;
     public int south;
     public int west;
