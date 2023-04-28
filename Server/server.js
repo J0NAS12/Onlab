@@ -6,13 +6,48 @@ const wss = new WebSocket.WebSocketServer({ port: 8080 }, () => {
 })
 
 
-let lobbies = [];
+let games = [];
+let clients = [];
+
+
+function getGames() {
+    let gameList = {};
+    gameList.method = "getLobbies";
+    gameList.lobbies = [];
+    games.forEach((lobby) => {
+        let newlobby = {};
+        newlobby.lobbyID = lobby.lobbyID;
+        newlobby.lobbyName = lobby.lobbyName;
+        gameList.lobbies.push(newlobby);
+    });
+    return gameList;
+}
+
+function updateAllClients(){
+    let lobbiesJSon = JSON.stringify(getGames());
+        clients.forEach((c)=>{
+            c.send(lobbiesJSon);
+        });
+}
+
+function startGame(game, input){
+    let gameSettings = {};
+    gameSettings.method = "startGame";
+    gameSettings.maze = input.maze;
+    gameSettings.players = game.players;
+    for(let i = 0; i< gameSettings.players.length; i++){
+        gameSettings.players[i].index = i;
+    }
+    return gameSettings;
+}
+
+
 
 wss.on('connection', function connection(client) {
 
     //Create Unique User ID for player
     client.id = uuid();
-
+    clients.push(client);
     console.log(`Client ${client.id} Connected!`)
 
     //Method retrieves message from client
@@ -23,11 +58,7 @@ wss.on('connection', function connection(client) {
 
         switch (dataJSON.method) {
             case "getLobbies":
-                let listlobbies = {};
-                listlobbies.method = "getLobbies";
-                listlobbies.lobbies = lobbies;
-                //listlobbies.lobbies.forEach((l) => l.clients = undefined);
-                let lobbiesJSon = JSON.stringify(listlobbies);
+                let lobbiesJSon = JSON.stringify(getGames());
                 client.send(lobbiesJSon);
                 console.log("Response");
                 console.log(lobbiesJSon);
@@ -41,13 +72,13 @@ wss.on('connection', function connection(client) {
                     players: dataJSON.players,
                     method: "createLobby"
                 };
-
-                lobbies.push(dataJSON);
+                games.push(dataJSON);
                 client.send(JSON.stringify(response));
+                updateAllClients();
                 break;
             case "joinLobby":
                 {
-                    let joinLobby = lobbies.find((e) => dataJSON.lobbyID = e.lobbyID);
+                    let joinLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
                     console.log(joinLobby);
                     joinLobby.players.push(dataJSON);
                     joinLobby.clients.push(client);
@@ -60,18 +91,19 @@ wss.on('connection', function connection(client) {
                     console.log(response);
                     let i=0
                     joinLobby.clients.forEach((e) => {
-                        console.log("client "+i++);
+                        console.log("client "+ i++);
                         e.send(JSON.stringify(response));
                     });
                     break;
                 }
             case "leaveLobby":
                 {
-                    let leaveLobby = lobbies.find((e) => dataJSON.lobbyID = e.lobbyID);
+                    let leaveLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
                     leaveLobby.players.splice(leaveLobby.clients.indexOf(client), 1);
                     leaveLobby.clients.splice(leaveLobby.clients.indexOf(client), 1);
                     if (leaveLobby.players.length === 0) {
-                        lobbies.splice(lobbies.indexOf(leaveLobby), 1);
+                        games.splice(games.indexOf(leaveLobby), 1);
+                        updateAllClients();
                     }
                     let response = {
                         lobbyID: dataJSON.lobbyID,
@@ -84,6 +116,14 @@ wss.on('connection', function connection(client) {
 
                 }
                 break;
+                case "startGame":
+                    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+                    game.clients.forEach((e) => {
+                        console.log(startGame(game, dataJSON));
+                        e.send(JSON.stringify(startGame(game, dataJSON)));
+                    });
+
+
         }
 
     });
@@ -92,10 +132,17 @@ wss.on('connection', function connection(client) {
     client.on('close', () => {
         console.log('This Connection Closed!')
         console.log("Removing Client: " + client.id)
-        let index = lobbies.findIndex((x)=> x.clients.find((x)=>x === client));
+        clients.splice(clients.indexOf(client), 1);
+        let index = games.findIndex((x)=> x.clients.find((x)=>x === client));
         console.log(index);
-        if(index<=0){
-            console.log("Client was in lobby: " + lobbies[index].lobbyID);
+        if(index>=0){
+            console.log("Client was in lobby: " + games[index].lobbyID);
+            games[index].players.splice(games[index].clients.indexOf(client), 1);
+            games[index].clients.splice(games[index].clients.indexOf(client), 1);
+            if (games[index].players.length === 0) {
+                games.splice(index, 1);
+                updateAllClients();
+            }
         }
     })
     var id = {};
@@ -105,6 +152,11 @@ wss.on('connection', function connection(client) {
     client.send(JSON.stringify(id));
     console.log("Sent back");
     console.log(JSON.stringify(id));
+
+    let lobbiesJSon = JSON.stringify(getGames());
+    client.send(lobbiesJSon);
+    console.log("Response");
+    console.log(lobbiesJSon);
 
 })
 

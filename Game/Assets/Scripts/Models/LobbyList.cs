@@ -8,5 +8,4 @@ public struct LobbyList
 {
     public string method;
     public List<LobbyData> lobbies;
-
 }

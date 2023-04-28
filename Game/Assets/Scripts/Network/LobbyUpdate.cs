@@ -28,19 +28,15 @@ public class LobbyUpdate : MonoBehaviour
     void Update()
     {
         lobbyName.text = GameValues.me.lobbyName;
-        string list = "";
+        string list = "Players:\n";
         foreach(var p in GameValues.lobbyPlayers){
             list += p.name + "\n";
         }
         playersList.text = list;
     }
 
-    void StartGame(){
-        var lobbyStart = new LobbyData{
-            method = "startLobby",
-            lobbyID = GameValues.me.lobbyID
-        };
-        GameValues.socket.Send(JsonUtility.ToJson(lobbyStart));
+    public void StartGame(){
+        SceneManager.LoadScene("Game");
     }
 
     public void LeaveLobby(){

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Maze : MonoBehaviour
 {
     public int sizeX, sizeZ;
@@ -15,7 +16,7 @@ public class Maze : MonoBehaviour
 
     private List<MazeRoom> rooms = new List<MazeRoom>();
 
-    private MazeCell[,] cells;
+    public MazeCell[,] cells;
 
     public float generationStepDelay;
 
@@ -51,6 +52,29 @@ public class Maze : MonoBehaviour
 		}
 	}
 
+	public void Load (){
+		Debug.Log("Load map");
+		cells = new MazeCell[size.x, size.z];
+		for(int i = 0;i < GameValues.maze.cells.Count; i++){
+			var celldata = GameValues.maze.cells[i];
+			MazeCell newCell = CreateCell(celldata.position);
+			newCell.SetEdge(MazeDirection.West, createEdge(celldata.west));
+			newCell.SetEdge(MazeDirection.East, createEdge(celldata.east));
+			newCell.SetEdge(MazeDirection.North, createEdge(celldata.north));
+			newCell.SetEdge(MazeDirection.South, createEdge(celldata.south));
+		}
+	}
+
+	private MazeCellEdge createEdge(int type){
+		switch(type){
+			case 1: return Instantiate(doorPrefab) as MazeDoor;
+			case 2: return Instantiate(passagePrefab) as MazePassage;
+			case 3: return Instantiate(wallPrefab) as MazeWall;
+			default: return Instantiate(doorPrefab) as MazeDoor;
+		}
+
+	}
+
 	private MazeCell CreateCell (IntVector2 coordinates) {
 		MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
 		cells[coordinates.x, coordinates.z] = newCell;
@@ -64,12 +88,7 @@ public class Maze : MonoBehaviour
 
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
 		MazeCell newCell;
-		if(activeCells.Count == 0){
-			newCell = CreateCell(new IntVector2(0,0));
-		}
-		else{
-			newCell = CreateCell(RandomCoordinates);
-		}
+		newCell = CreateCell(RandomCoordinates);
 		newCell.Initialize(CreateRoom(-1));
 		activeCells.Add(newCell);
 	}

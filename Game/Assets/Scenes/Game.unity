@@ -362,11 +362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 2496682129214396443, guid: fc321f4c88986df4e82c36eb3485136e, type: 3}
-  players:
-  - {fileID: 4703599219601833430, guid: 1e59362aedc48f34cac758c8a75d70a7, type: 3}
-  - {fileID: 957173735678647581, guid: effdea84d6c77fc469fde6f7bbb67987, type: 3}
-  - {fileID: 957173735678647581, guid: effdea84d6c77fc469fde6f7bbb67987, type: 3}
-  - {fileID: 957173735678647581, guid: effdea84d6c77fc469fde6f7bbb67987, type: 3}
+  me: {fileID: 4703599219601833430, guid: 1e59362aedc48f34cac758c8a75d70a7, type: 3}
+  opponents: {fileID: 957173735678647581, guid: effdea84d6c77fc469fde6f7bbb67987, type: 3}
   positions:
   - {x: 9.5, y: 1, z: 9.5}
   - {x: -9.5, y: 1, z: -9.5}

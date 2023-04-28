@@ -7,4 +7,5 @@ public class MazeWall : MazeCellEdge {
 		base.Initialize(cell, otherCell, direction);
 		wall.GetComponent<Renderer>().material = cell.room.settings.wallMaterial;
 	}
+	     public override int Type { get{return 3;} }
 }

@@ -10,4 +10,6 @@ public struct LobbyData
     public string ID;
     public List<PlayerData> players;
 
+    public MazeData maze;
+
 }

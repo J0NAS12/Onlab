@@ -13,11 +13,6 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("Lobby");
     }
-
-    public void JoinLobbyScene()
-    {
-        SceneManager.LoadScene("JoinLobby");
-    }
     public void MenuScene()
     {
         SceneManager.LoadScene("Menu");

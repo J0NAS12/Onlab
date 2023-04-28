@@ -23,22 +23,23 @@ public class JoinLobbyUpdate : MonoBehaviour
     {
         if(GameValues.listHasChanged){
             GameValues.listHasChanged = false;
-            GameObject g;
             foreach(Transform c in panel.transform){
                 Destroy(c.gameObject);
             }
-            int i = 0;
-            foreach(var v in GameValues.lobbies){
-                g = Instantiate (buttonTemplate, panel.transform);
+            for (var i = 0; i<GameValues.lobbies.Count; i++){
+                var v = GameValues.lobbies[i];
+                GameObject g = Instantiate (buttonTemplate, panel.transform);
                 g.SetActive(true);
                 g.transform.GetChild (0).GetComponent <TextMeshProUGUI> ().text = v.lobbyName;
-                g.GetComponent<Button>().onClick.AddListener(()=>ButtonClicked(i++));
+                g.name = i.ToString();
+                g.GetComponent<Button>().onClick.AddListener(()=>ButtonClicked(int.Parse(g.name)));
             }
         }
     }
 
     void ButtonClicked(int i){
         GameValues.me.lobbyID = GameValues.lobbies[i].lobbyID;
+        GameValues.me.lobbyName = GameValues.lobbies[i].lobbyName;
         var me = GameValues.me;
         me.method = "joinLobby";
         GameValues.socket.Send(JsonUtility.ToJson(me));

@@ -19,7 +19,8 @@ public class GameValues : MonoBehaviour
         name = null,
         lobbyName = null
     };
-
+ 
+    public static MazeData maze;
     public static List<LobbyData> lobbies = new List<LobbyData>();
 
     public static List<PlayerData> lobbyPlayers = new List<PlayerData>();

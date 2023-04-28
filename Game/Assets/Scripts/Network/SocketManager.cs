@@ -4,6 +4,7 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SocketManager : MonoBehaviour
 {
@@ -27,13 +28,13 @@ public class SocketManager : MonoBehaviour
                 if (e.IsText)
                 {
                     JObject jsonObj = JObject.Parse(e.Data);
+                    Debug.Log("method:" + (string)jsonObj["method"]);
                     switch (((string)jsonObj["method"]))
                     {
                         case "createLobby":
                             var lobbyData = JsonUtility.FromJson<LobbyData>(e.Data);
                             GameValues.me.lobbyID = lobbyData.lobbyID;
                             GameValues.lobbyPlayers = (lobbyData.players);
-                            Debug.Log("lobbyplayers set");
                             break;
                         case "getLobbies":
                             var lobbiesData = JsonUtility.FromJson<LobbyList>(e.Data);
@@ -46,10 +47,14 @@ public class SocketManager : MonoBehaviour
                             break;
                         case "id":
                             GameValues.me.id = (string)jsonObj["id"];
-                            Debug.Log("id set to " + GameValues.me.id);
                             break;
-                        case "join": break;
+                        case "startGame":
+                            GameValues.maze = JsonUtility.FromJson<MazeData>(e.Data);
+                            Debug.Log("start game");
+                            SceneManager.LoadScene("Game");
+                            break;
                         default:
+                            Debug.Log("no method: " + (string)jsonObj["method"]);
                             break;
                     }
                 }
