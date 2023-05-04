@@ -8,7 +8,6 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
-
     public void LobbyScene()
     {
         SceneManager.LoadScene("Lobby");

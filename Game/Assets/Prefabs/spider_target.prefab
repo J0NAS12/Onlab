@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 918947510374902369}
   - component: {fileID: 918947510374902370}
   - component: {fileID: 918947510374902368}
+  - component: {fileID: 1876296898000047417}
   m_Layer: 0
   m_Name: spider_target
   m_TagString: Untagged
@@ -290,7 +291,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyable: 1
   health: 1
-  spidersLeft: {fileID: 6572234944184141501, guid: 1172c485bef79e846918bfb198c2d8cb, type: 3}
+--- !u!114 &1876296898000047417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957173735678647581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f5976da41bcfe4dbcff382af60bbba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1000
+  rotationSpeed: 5
+  drag: 5
+  index: 0
 --- !u!1 &1277787311274853689
 GameObject:
   m_ObjectHideFlags: 0
