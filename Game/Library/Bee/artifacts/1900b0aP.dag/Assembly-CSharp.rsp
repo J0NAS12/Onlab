@@ -330,6 +330,7 @@
 "Assets/Scripts/Models/MazeCellData.cs"
 "Assets/Scripts/Models/MazeData.cs"
 "Assets/Scripts/Models/PlayerData.cs"
+"Assets/Scripts/MoveOpponent.cs"
 "Assets/Scripts/Network/LobbyUpdate.cs"
 "Assets/Scripts/Network/SocketManager.cs"
 "Assets/Scripts/updateStats.cs"

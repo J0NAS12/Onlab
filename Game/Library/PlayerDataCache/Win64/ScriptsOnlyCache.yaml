@@ -179,8 +179,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3674}
     - Class: 114
-      Script: {instanceID: 4416}
-    - Class: 114
       Script: {instanceID: 4964}
     - Class: 114
       Script: {instanceID: 5506}
@@ -809,7 +807,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: faf928b6523e9cc21fb4053734419ee0
+      Hash: a8c3476c8179b8288422e57f0376c804
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SocketManager
@@ -1001,7 +999,7 @@ ScriptsOnlyBuild:
     className: Bullet
   - hash:
       serializedVersion: 2
-      Hash: 1637cf4dc9ca81e2d08629119694d384
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -1263,6 +1261,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MoveOpponent
   platform: 19
   scenePathNames:
   - Assets/Scenes/Menu.unity

@@ -57,6 +57,10 @@ wss.on('connection', function connection(client) {
         console.log(dataJSON);
 
         switch (dataJSON.method) {
+            case "game":
+                let myLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+                myLobby.clients.forEach(c => c.send(data));
+                break;
             case "getLobbies":
                 let lobbiesJSon = JSON.stringify(getGames());
                 client.send(lobbiesJSon);

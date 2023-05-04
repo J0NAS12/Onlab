@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 public class SocketManager : MonoBehaviour
 {
     public static WebSocket socket;
-    public GameObject player;
     public PlayerData playerData;
 
     // Start is called before the first frame update
@@ -31,6 +30,10 @@ public class SocketManager : MonoBehaviour
                     Debug.Log("method:" + (string)jsonObj["method"]);
                     switch (((string)jsonObj["method"]))
                     {
+                        case "game":
+                            var playerData = JsonUtility.FromJson<PlayerData>(e.Data);
+                            CreateMap.MovePlayer(playerData);
+                            break;
                         case "createLobby":
                             var lobbyData = JsonUtility.FromJson<LobbyData>(e.Data);
                             GameValues.me.lobbyID = lobbyData.lobbyID;
@@ -81,23 +84,6 @@ public class SocketManager : MonoBehaviour
         if (socket == null)
         {
             return;
-        }
-
-        //If player is correctly configured, begin sending player data to server
-        if (player != null && playerData.id != "")
-        {
-            //Grab player current position and rotation data
-            playerData.xPos = player.transform.position.x;
-            playerData.yRot = player.transform.rotation.y;
-            playerData.zPos = player.transform.position.z;
-
-            System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            double timestamp = (System.DateTime.UtcNow - epochStart).TotalSeconds;
-            //Debug.Log(timestamp);
-            playerData.timestamp = timestamp;
-
-            string playerDataJSON = JsonUtility.ToJson(playerData);
-            socket.Send(playerDataJSON);
         }
     }
 

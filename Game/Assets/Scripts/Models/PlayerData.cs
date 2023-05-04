@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public struct PlayerData
@@ -9,8 +10,6 @@ public struct PlayerData
     public string lobbyName;
     public int index;
     public string name;
-    public float xPos;
-    public float yRot;
-    public float zPos;
+    public Vector3 movement;
     public double timestamp;
 }
