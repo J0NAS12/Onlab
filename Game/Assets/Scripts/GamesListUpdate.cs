@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class JoinLobbyUpdate : MonoBehaviour
+public class GamesListUpdate : MonoBehaviour
 {
     // Start is called before the first frame update
     
@@ -14,7 +14,7 @@ public class JoinLobbyUpdate : MonoBehaviour
     public List<GameObject> buttons;
     void Start()
     {
-        var getLobbies = "{\"method\" : \"getLobbies\"}";
+        var getLobbies = "{\"method\" : \"getGames\"}";
         GameValues.socket.Send(getLobbies);
     }
 
@@ -41,7 +41,7 @@ public class JoinLobbyUpdate : MonoBehaviour
         GameValues.me.lobbyID = GameValues.lobbies[i].lobbyID;
         GameValues.me.lobbyName = GameValues.lobbies[i].lobbyName;
         var me = GameValues.me;
-        me.method = "joinLobby";
+        me.method = "joinGame";
         GameValues.socket.Send(JsonUtility.ToJson(me));
         SceneManager.LoadScene("Lobby");
     }

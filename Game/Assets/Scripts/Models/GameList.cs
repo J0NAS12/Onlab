@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct LobbyList
+public struct GameList
 {
     public string method;
-    public List<LobbyData> lobbies;
+    public List<GameData> lobbies;
 }

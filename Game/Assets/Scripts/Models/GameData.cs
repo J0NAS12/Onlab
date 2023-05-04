@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public struct LobbyData
+public struct GameData
 {
     public string method;
     public string lobbyID;

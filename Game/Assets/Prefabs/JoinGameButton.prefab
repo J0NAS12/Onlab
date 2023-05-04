@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 810934805879573867}
   - component: {fileID: 6029506932457306202}
   m_Layer: 5
-  m_Name: LobbyButton
+  m_Name: JoinGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

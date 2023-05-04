@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LobbyUpdate : MonoBehaviour
+public class GameUpdate : MonoBehaviour
 {
     // Start is called before the first frame update
 
@@ -13,14 +13,14 @@ public class LobbyUpdate : MonoBehaviour
     void Start()
     {
         if(GameValues.me.lobbyID == null){
-            var lobbyData = new LobbyData{
-                method = "createLobby",
+            var gameData = new GameData{
+                method = "createGame",
                 ID = GameValues.me.id,
                 lobbyName = GameValues.me.lobbyName,
                 players = new List<PlayerData>()
             };
-            lobbyData.players.Add(GameValues.me);
-            GameValues.socket.Send(JsonUtility.ToJson(lobbyData));
+            gameData.players.Add(GameValues.me);
+            GameValues.socket.Send(JsonUtility.ToJson(gameData));
         }
     }
 
@@ -48,8 +48,8 @@ public class LobbyUpdate : MonoBehaviour
     }
 
     public void LeaveLobby(){
-        var lobbyLeave = new LobbyData{
-            method = "leaveLobby",
+        var lobbyLeave = new GameData{
+            method = "leaveGame",
             ID = GameValues.me.id,
             lobbyID = GameValues.me.lobbyID,
             lobbyName = GameValues.me.lobbyName

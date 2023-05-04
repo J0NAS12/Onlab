@@ -31,22 +31,24 @@ public class SocketManager : MonoBehaviour
                     switch (((string)jsonObj["method"]))
                     {
                         case "game":
+
                             var playerData = JsonUtility.FromJson<PlayerData>(e.Data);
-                            CreateMap.MovePlayer(playerData);
+                            GameValues.lobbyPlayers[playerData.index] = playerData;
+                            Debug.Log(GameValues.lobbyPlayers);
                             break;
-                        case "createLobby":
-                            var lobbyData = JsonUtility.FromJson<LobbyData>(e.Data);
+                        case "createGame":
+                            var lobbyData = JsonUtility.FromJson<GameData>(e.Data);
                             GameValues.me.lobbyID = lobbyData.lobbyID;
                             GameValues.lobbyPlayers = (lobbyData.players);
                             GameValues.playersChanged = true;
                             break;
-                        case "getLobbies":
-                            var lobbiesData = JsonUtility.FromJson<LobbyList>(e.Data);
+                        case "getGames":
+                            var lobbiesData = JsonUtility.FromJson<GameList>(e.Data);
                             GameValues.lobbies = lobbiesData.lobbies;
                             GameValues.listHasChanged = true;
                             break;
-                        case "updateLobby":
-                            var updated = JsonUtility.FromJson<LobbyData>(e.Data);
+                        case "updateGame":
+                            var updated = JsonUtility.FromJson<GameData>(e.Data);
                             GameValues.lobbyPlayers = updated.players;
                             GameValues.me.index = GameValues.lobbyPlayers.IndexOf(GameValues.lobbyPlayers.Find(x=>x.id == GameValues.me.id));
                             GameValues.playersChanged = true;
@@ -55,9 +57,8 @@ public class SocketManager : MonoBehaviour
                             GameValues.me.id = (string)jsonObj["id"];
                             break;
                         case "startGame":
-                            var data = JsonUtility.FromJson<LobbyData>(e.Data);
+                            var data = JsonUtility.FromJson<GameData>(e.Data);
                             GameValues.maze = data.maze;
-                            Debug.Log("start game");
                             GameValues.startGame = true;
                             break;
                         default:

@@ -38,7 +38,7 @@ public class CreateMap : MonoBehaviour
                     };
                     GameValues.maze.cells.Add(data);
             }
-            var gameStart = new LobbyData
+            var gameStart = new GameData
             {
                 method = "startGame",
                 lobbyID = GameValues.me.lobbyID,
@@ -62,6 +62,7 @@ public class CreateMap : MonoBehaviour
             }
             else{
                 spider = Instantiate(opponents) as GameObject;
+                spider.GetComponent<OpponentMovement>().index = i;
             }
             players.Add(spider);
             spider.transform.position = positions[i];
@@ -69,7 +70,7 @@ public class CreateMap : MonoBehaviour
     }
 
     public static void MovePlayer(PlayerData playerData){
-        if(GameValues.me.index != playerData.index){
+        /* if(GameValues.me.index != playerData.index){
             var desiredDir = playerData.movement;
             var player = players[playerData.index];
             if (desiredDir != Vector3.zero)
@@ -85,6 +86,6 @@ public class CreateMap : MonoBehaviour
                 rb.AddForce(currentDir * forceMultiplier * PlayerMovement.speed * Time.fixedDeltaTime);
                 rb.drag = PlayerMovement.drag;
             }
-        }
+        } */
     }
 }
