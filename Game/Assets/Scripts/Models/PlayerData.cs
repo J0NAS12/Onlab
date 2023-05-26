@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public struct PlayerData
+public class PlayerData
 {
     public string method;
     public string id;
@@ -10,6 +10,13 @@ public struct PlayerData
     public string lobbyName;
     public int index;
     public string name;
-    public Vector3 movement;
+    public bool alive;
+    public int kills;
+    public int wins;
+    public Quaternion rotation;
+    public Vector3 position;
+    public Vector3 velocity;
+    public bool newData;
     public double timestamp;
+
 }

@@ -14,6 +14,28 @@ public class SocketManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Connect();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Debug.Log(player.transform.position);
+        if (socket == null || socket.ReadyState == WebSocketState.Closed)
+        {
+            Connect();
+            return;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        //Close socket when exiting application
+        //socket.Close();
+    }
+
+
+    private void Connect(){
         if (GameValues.socket == null)
         {
             socket = new WebSocket("ws://localhost:8080");
@@ -27,14 +49,23 @@ public class SocketManager : MonoBehaviour
                 if (e.IsText)
                 {
                     JObject jsonObj = JObject.Parse(e.Data);
-                    Debug.Log("method:" + (string)jsonObj["method"]);
                     switch (((string)jsonObj["method"]))
                     {
+                        case "hit":
+                            var hitData = JsonUtility.FromJson<HitData>(e.Data);
+                            GameValues.hitList.Add(hitData);
+                            break;
                         case "game":
-
                             var playerData = JsonUtility.FromJson<PlayerData>(e.Data);
-                            GameValues.lobbyPlayers[playerData.index] = playerData;
-                            Debug.Log(GameValues.lobbyPlayers);
+                            if(playerData.id != GameValues.me.id){
+                                GameValues.lobbyPlayers[playerData.index] = playerData;
+                            }
+                            break;
+                        case "bullet":
+                            var bulletData = JsonUtility.FromJson<BulletData>(e.Data);
+                            if(bulletData.shooter.id != GameValues.me.id){
+                                GameValues.bulletList.Add(bulletData);
+                            }
                             break;
                         case "createGame":
                             var lobbyData = JsonUtility.FromJson<GameData>(e.Data);
@@ -57,6 +88,10 @@ public class SocketManager : MonoBehaviour
                             GameValues.me.id = (string)jsonObj["id"];
                             break;
                         case "startGame":
+                            for(var i=0;i<GameValues.lobbyPlayers.Count; i++){
+                                GameValues.lobbyPlayers[i].alive = true;
+                            }
+                            GameValues.spidersLeft = GameValues.lobbyPlayers.Count;
                             var data = JsonUtility.FromJson<GameData>(e.Data);
                             GameValues.maze = data.maze;
                             GameValues.startGame = true;
@@ -76,22 +111,6 @@ public class SocketManager : MonoBehaviour
                 Debug.Log("Connection Closed!");
             };
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(player.transform.position);
-        if (socket == null)
-        {
-            return;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        //Close socket when exiting application
-        //socket.Close();
     }
 
 

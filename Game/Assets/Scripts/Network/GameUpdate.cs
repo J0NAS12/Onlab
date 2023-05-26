@@ -18,9 +18,9 @@ public class GameUpdate : MonoBehaviour
                 ID = GameValues.me.id,
                 lobbyName = GameValues.me.lobbyName,
                 players = new List<PlayerData>()
-            };
-            gameData.players.Add(GameValues.me);
-            GameValues.socket.Send(JsonUtility.ToJson(gameData));
+        };
+        gameData.players.Add(GameValues.me);
+        GameValues.socket.Send(JsonUtility.ToJson(gameData));
         }
     }
 
@@ -35,9 +35,9 @@ public class GameUpdate : MonoBehaviour
         if(GameValues.playersChanged){
             GameValues.playersChanged = false;
             lobbyName.text = GameValues.me.lobbyName;
-            string list = "Players:\n";
+            string list = "Players:\tKills\tWins\n";
             foreach(var p in GameValues.lobbyPlayers){
-                list += p.name + "\n";
+                list += p.name + "\t" + p.kills + "\t" + p.wins + "\n";
             }
             playersList.text = list;
         }
@@ -48,6 +48,9 @@ public class GameUpdate : MonoBehaviour
     }
 
     public void LeaveLobby(){
+        GameValues.me.alive = true;
+        GameValues.me.kills = 0;
+        GameValues.me.wins = 0;
         var lobbyLeave = new GameData{
             method = "leaveGame",
             ID = GameValues.me.id,

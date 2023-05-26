@@ -40,6 +40,9 @@ public class GamesListUpdate : MonoBehaviour
     void ButtonClicked(int i){
         GameValues.me.lobbyID = GameValues.lobbies[i].lobbyID;
         GameValues.me.lobbyName = GameValues.lobbies[i].lobbyName;
+        GameValues.me.alive = true;
+        GameValues.me.kills = 0;
+        GameValues.me.wins = 0;
         var me = GameValues.me;
         me.method = "joinGame";
         GameValues.socket.Send(JsonUtility.ToJson(me));

@@ -9,7 +9,6 @@ public struct GameData
     public string lobbyName;
     public string ID;
     public List<PlayerData> players;
-
     public MazeData maze;
 
 }

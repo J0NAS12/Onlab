@@ -1262,6 +1262,7 @@ GameObject:
   - component: {fileID: 5586683726996861280}
   - component: {fileID: 6490141605073143406}
   - component: {fileID: 3441614180476237128}
+  - component: {fileID: 9753161032887862}
   m_Layer: 0
   m_Name: spider_black
   m_TagString: Untagged
@@ -1301,7 +1302,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &5586683726996861284
 BoxCollider:
@@ -1392,6 +1393,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa70149127b92d441bf81106c4056949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9753161032887862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703599219601833430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb1937e050c21a4383d4e89253f2873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyable: 1
+  health: 1
 --- !u!1 &4943811042856104599
 GameObject:
   m_ObjectHideFlags: 0

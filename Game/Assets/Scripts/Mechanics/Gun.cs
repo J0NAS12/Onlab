@@ -59,7 +59,18 @@ public class Gun : MonoBehaviour {
                 transform.position + transform.forward * muzzleOffset,
                 transform.rotation
             );
-
+            spawnedRound.name = GameValues.me.index.ToString();
+            System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
+            double timestamp = (System.DateTime.UtcNow - epochStart).TotalSeconds;
+            var bulletData = new BulletData{
+                method = "bullet",
+                shooter = GameValues.me,
+                startPoint = transform.position + transform.forward * muzzleOffset,
+                rotation = transform.rotation,
+                speed = roundSpeed,
+                timestamp = timestamp
+            };
+            GameValues.socket.Send(JsonUtility.ToJson(bulletData));
             Rigidbody rb = spawnedRound.GetComponent<Rigidbody>();
             rb.velocity = spawnedRound.transform.forward * roundSpeed;
         }

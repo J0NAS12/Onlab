@@ -1,4 +1,4 @@
-var uuid = require('uuid-random');
+let uuid = require('uuid-random');
 const WebSocket = require('ws');
 
 const wss = new WebSocket.WebSocketServer({ port: 8080 }, () => {
@@ -56,10 +56,18 @@ wss.on('connection', function connection(client) {
         console.log("Player Message");
         console.log(dataJSON);
         switch (dataJSON.method) {
+            case "hit":
             case "game":
-                let myLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-                console.log("hello here" + myLobby.clients.length);
-                myLobby.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+                {
+                    let myLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+                    myLobby.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+                }
+                break;
+            case "bullet":
+                {
+                let game = games.find((e) => dataJSON.shooter.lobbyID === e.lobbyID);
+                game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+                }
                 break;
             case "getGames":
                 let lobbiesJSon = JSON.stringify(getGames());
@@ -145,7 +153,7 @@ wss.on('connection', function connection(client) {
             }
         }
     })
-    var id = {};
+    const id = {};
     id.method = "id";
     id.id = client.id;
 
