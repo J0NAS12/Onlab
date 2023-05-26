@@ -12,5 +12,4 @@ public struct IntVector2 {
 		a.z += b.z;
 		return a;
 	}
-
 }

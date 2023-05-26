@@ -56,7 +56,6 @@ public class Maze : MonoBehaviour
 
     public void Load()
     {
-        Debug.Log("Load map");
         cells = new MazeCell[size.x, size.z];
         for (int i = 0; i < GameValues.maze.cells.Count; i++)
         {
@@ -83,7 +82,6 @@ public class Maze : MonoBehaviour
 
     private void createEdge(int type, MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
-        Debug.Log("edge" + type);
         MazeCellEdge edge;
         switch (type)
         {
