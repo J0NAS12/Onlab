@@ -30,7 +30,8 @@ public class Gun : MonoBehaviour {
     private float nextShootTime = 0;
 
     void Start() {
-        muzzleOffset = GetComponent<Renderer>().bounds.extents.z;
+        //muzzleOffset = GetComponent<Renderer>().bounds.extents.z;
+        muzzleOffset = 0;
     }
 
     void Update() {

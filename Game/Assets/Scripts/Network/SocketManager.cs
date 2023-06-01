@@ -38,7 +38,7 @@ public class SocketManager : MonoBehaviour
     private void Connect(){
         if (GameValues.socket == null)
         {
-            socket = new WebSocket("ws://localhost:8080");
+            socket = new WebSocket("ws://152.66.181.88:8080");
             socket.Connect();
             GameValues.socket = socket;
 
