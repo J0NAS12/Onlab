@@ -1214,6 +1214,53 @@ Transform:
   m_Father: {fileID: 2657316687085715868}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4563074431361157752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3543103664770146452}
+  - component: {fileID: 4916072947135352834}
+  m_Layer: 0
+  m_Name: Pistol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3543103664770146452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4563074431361157752}
+  m_LocalRotation: {x: -0, y: -0, z: -1.1723954e-13, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1999998, z: 1.6299996}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5336020352895788908}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4916072947135352834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4563074431361157752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0635a36923d9db64b889dace6e553844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  round: {fileID: 8214870215865858331, guid: 906f90a519b09fc4488e63ee7aa72e13, type: 3}
+  fireRate: 1
+  roundSpeed: 10
 --- !u!1 &4635604601912223896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1331,7 @@ Transform:
   m_Children:
   - {fileID: 8211767742085618301}
   - {fileID: 8016437275011429579}
+  - {fileID: 3543103664770146452}
   - {fileID: 5586683727715808508}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1551,7 +1599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5586683727715808508
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1613,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5336020352895788908}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5586683727715808496
 MeshFilter:
@@ -1644,7 +1692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   round: {fileID: 8214870215865858331, guid: 906f90a519b09fc4488e63ee7aa72e13, type: 3}
   fireRate: 1
-  roundSpeed: 10.3
+  roundSpeed: 10
 --- !u!1 &5665685978078056304
 GameObject:
   m_ObjectHideFlags: 0
