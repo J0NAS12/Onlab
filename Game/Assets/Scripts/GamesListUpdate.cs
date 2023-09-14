@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,8 +15,12 @@ public class GamesListUpdate : MonoBehaviour
     public List<GameObject> buttons;
     void Start()
     {
-        var getLobbies = "{\"method\" : \"getGames\"}";
-        GameValues.socket.Send(getLobbies);
+        try
+        {
+            var getLobbies = "{\"method\" : \"getGames\"}";
+            GameValues.socket.Send(getLobbies);
+        }catch (Exception){}
+
     }
 
     // Update is called once per frame

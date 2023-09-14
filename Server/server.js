@@ -1,7 +1,7 @@
 let uuid = require('uuid-random');
 const WebSocket = require('ws');
 
-const wss = new WebSocket.WebSocketServer({ port: 8080 }, () => {
+const wss = new WebSocket.WebSocketServer({ port: 8081 }, () => {
     console.log('server started')
 })
 
@@ -47,6 +47,10 @@ wss.on('connection', function connection(client) {
 
     //Create Unique User ID for player
     client.id = uuid();
+    let timestamp = {};
+    timestamp.method = "clock";
+    timestamp.timestamp = new Date().getTime() / 1000.0;
+    client.send(JSON.stringify(timestamp));
     clients.push(client);
     console.log(`Client ${client.id} Connected!`)
 
@@ -142,7 +146,6 @@ wss.on('connection', function connection(client) {
         console.log("Removing Client: " + client.id)
         clients.splice(clients.indexOf(client), 1);
         let index = games.findIndex((x) => x.clients.find((x) => x === client));
-        console.log(index);
         if (index >= 0) {
             console.log("Client was in lobby: " + games[index].lobbyID);
             games[index].players.splice(games[index].clients.indexOf(client), 1);
@@ -169,5 +172,5 @@ wss.on('connection', function connection(client) {
 })
 
 wss.on('listening', () => {
-    console.log('listening on 8080')
+    console.log('listening on 8081')
 })

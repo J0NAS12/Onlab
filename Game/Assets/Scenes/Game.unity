@@ -633,9 +633,17 @@ PrefabInstance:
       value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 6572234944184141501, guid: 1172c485bef79e846918bfb198c2d8cb, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ce8fba88dad93248b89c67fd069a29a, type: 2}
+    - target: {fileID: 6572234944184141501, guid: 1172c485bef79e846918bfb198c2d8cb, type: 3}
       propertyPath: m_fontSizeBase
       value: 160
       objectReference: {fileID: 0}
+    - target: {fileID: 6572234944184141501, guid: 1172c485bef79e846918bfb198c2d8cb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6261929944958951242, guid: 8ce8fba88dad93248b89c67fd069a29a, type: 2}
     - target: {fileID: 6572234944184141501, guid: 1172c485bef79e846918bfb198c2d8cb, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2

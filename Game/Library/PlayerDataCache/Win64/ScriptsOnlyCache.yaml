@@ -33,10 +33,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -104,11 +102,17 @@ ScriptsOnlyBuild:
     fullTypeName: GameValues
     methodName: ChangeName
   - assembly: Assembly-CSharp
+    fullTypeName: GameValues
+    methodName: ChangeIp
+  - assembly: Assembly-CSharp
     fullTypeName: ChangeScene
     methodName: LobbyScene
   - assembly: Assembly-CSharp
     fullTypeName: GameValues
     methodName: ChangeLobbyName
+  - assembly: Assembly-CSharp
+    fullTypeName: SocketManager
+    methodName: Connect
   - assembly: Assembly-CSharp
     fullTypeName: ChangeScene
     methodName: GameScene
@@ -177,29 +181,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4966}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5652}
+      Script: {instanceID: 5654}
     - Class: 114
-      Script: {instanceID: 5806}
+      Script: {instanceID: 5808}
     - Class: 114
-      Script: {instanceID: 5880}
+      Script: {instanceID: 5882}
     - Class: 114
-      Script: {instanceID: 5954}
+      Script: {instanceID: 5956}
     - Class: 114
-      Script: {instanceID: 5968}
+      Script: {instanceID: 5970}
     - Class: 114
-      Script: {instanceID: 6050}
+      Script: {instanceID: 6052}
     - Class: 114
-      Script: {instanceID: 6508}
+      Script: {instanceID: 6510}
     - Class: 114
-      Script: {instanceID: 6922}
-    - Class: 114
-      Script: {instanceID: 7076}
+      Script: {instanceID: 6924}
     - Class: 114
       Script: {instanceID: 7078}
     - Class: 114
-      Script: {instanceID: 7510}
+      Script: {instanceID: 7080}
+    - Class: 114
+      Script: {instanceID: 7512}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -256,11 +260,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4966}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5652}
+      Script: {instanceID: 5654}
     - Class: 114
-      Script: {instanceID: 5968}
+      Script: {instanceID: 5970}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -333,19 +337,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4966}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5652}
+      Script: {instanceID: 5654}
     - Class: 114
-      Script: {instanceID: 5722}
+      Script: {instanceID: 5724}
     - Class: 114
-      Script: {instanceID: 5968}
+      Script: {instanceID: 5970}
     - Class: 114
-      Script: {instanceID: 5976}
+      Script: {instanceID: 5978}
     - Class: 114
-      Script: {instanceID: 6368}
+      Script: {instanceID: 6370}
     - Class: 114
-      Script: {instanceID: 6994}
+      Script: {instanceID: 6996}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -803,7 +807,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: c8cec06e1b3baf77431af69b15dcbe33
+      Hash: 7ebb5f6729e883862b71fb27db91d437
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SocketManager
@@ -933,6 +937,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Clock
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1268,4 +1278,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
   - Assets/Scenes/Lobby.unity
-  playerPath: C:/Onlab_Build/Game.exe
+  playerPath: E:/Game/Game.exe

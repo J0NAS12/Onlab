@@ -5,27 +5,23 @@ using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SocketManager : MonoBehaviour
 {
     public static WebSocket socket;
     public PlayerData playerData;
+    public GameObject reconnect;
+    public TextMeshProUGUI errormessage;
+    public GameObject connectedPanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        reconnect.SetActive(false);
+        errormessage.text = "";
+        connectedPanel.SetActive(true);
         Connect();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(player.transform.position);
-        if (socket == null || socket.ReadyState == WebSocketState.Closed)
-        {
-            Connect();
-            return;
-        }
     }
 
     private void OnDestroy()
@@ -34,12 +30,30 @@ public class SocketManager : MonoBehaviour
         //socket.Close();
     }
 
+    public void Reconnect(){
+        socket.Connect();
+        if(socket.IsAlive){
+            reconnect.SetActive(false);
+            errormessage.text = "";
+            connectedPanel.SetActive(true);
+        }
+        else{
+            GameValues.socket = null;
+            reconnect.SetActive(true);
+            Debug.Log("Finished");
+            errormessage.text = "Couldn't connect to the server.";
+            connectedPanel.SetActive(false);
+        }
+    }
 
-    private void Connect(){
+
+    public void Connect(){
+
         if (GameValues.socket == null)
         {
-            socket = new WebSocket("ws://localhost:8080");
-            socket.Connect();
+            errormessage.text = "Connecting...";
+            Debug.Log("Connecting");
+            socket = new WebSocket("ws://" + GameValues.serverip);
             GameValues.socket = socket;
 
             //WebSocket onMessage function
@@ -49,7 +63,7 @@ public class SocketManager : MonoBehaviour
                 if (e.IsText)
                 {
                     JObject jsonObj = JObject.Parse(e.Data);
-                    switch (((string)jsonObj["method"]))
+                    switch ((string)jsonObj["method"])
                     {
                         case "hit":
                             var hitData = JsonUtility.FromJson<HitData>(e.Data);
@@ -96,6 +110,9 @@ public class SocketManager : MonoBehaviour
                             GameValues.maze = data.maze;
                             GameValues.startGame = true;
                             break;
+                        case "clock":
+                            Clock.synchronize((double)jsonObj["timestamp"]);
+                            break;
                         default:
                             Debug.Log("no method: " + (string)jsonObj["method"]);
                             break;
@@ -106,10 +123,15 @@ public class SocketManager : MonoBehaviour
             //If server connection closes (not client originated)
             socket.OnClose += (sender, e) =>
             {
+
                 Debug.Log(e.Code);
                 Debug.Log(e.Reason);
                 Debug.Log("Connection Closed!");
+
             };
+            Clock.startSync();
+            Reconnect();
+
         }
     }
 

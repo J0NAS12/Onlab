@@ -7,6 +7,7 @@ using WebSocketSharp;
 
 public class GameValues : MonoBehaviour
 {
+    public static string serverip = "localhost:8081";
     public static bool startGame = false;
     public static bool listHasChanged = false;
     public static bool playersChanged = false;
@@ -37,5 +38,10 @@ public class GameValues : MonoBehaviour
     public void ChangeLobbyName(string value){
         me.lobbyName = value;
     }
+        public void ChangeIp(string value){
+        serverip = value;
+    }
+
+
 
 }
