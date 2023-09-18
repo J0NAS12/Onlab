@@ -98,8 +98,7 @@ public class CreateMap : MonoBehaviour
                 spawnedRound.name = bullet.shooter.index.ToString();
                 Rigidbody rb = spawnedRound.GetComponent<Rigidbody>();
                 rb.velocity = spawnedRound.transform.forward * bullet.speed;
-                System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-                double timestamp = (System.DateTime.UtcNow - epochStart).TotalSeconds;
+                double timestamp = Clock.getTime();
                 spawnedRound.transform.position += spawnedRound.transform.forward * bullet.speed * (float)(timestamp - bullet.timestamp);
             }
         }

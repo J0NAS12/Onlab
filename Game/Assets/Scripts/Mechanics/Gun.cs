@@ -61,8 +61,7 @@ public class Gun : MonoBehaviour {
                 transform.rotation
             );
             spawnedRound.name = GameValues.me.index.ToString();
-            System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            double timestamp = (System.DateTime.UtcNow - epochStart).TotalSeconds;
+            double timestamp = Clock.getTime();
             var bulletData = new BulletData{
                 method = "bullet",
                 shooter = GameValues.me,

@@ -33,6 +33,7 @@ public class SocketManager : MonoBehaviour
     public void Reconnect(){
         socket.Connect();
         if(socket.IsAlive){
+                        Clock.startSync();
             reconnect.SetActive(false);
             errormessage.text = "";
             connectedPanel.SetActive(true);
@@ -129,7 +130,6 @@ public class SocketManager : MonoBehaviour
                 Debug.Log("Connection Closed!");
 
             };
-            Clock.startSync();
             Reconnect();
 
         }

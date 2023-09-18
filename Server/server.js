@@ -47,10 +47,6 @@ wss.on('connection', function connection(client) {
 
     //Create Unique User ID for player
     client.id = uuid();
-    let timestamp = {};
-    timestamp.method = "clock";
-    timestamp.timestamp = new Date().getTime() / 1000.0;
-    client.send(JSON.stringify(timestamp));
     clients.push(client);
     console.log(`Client ${client.id} Connected!`)
 
@@ -65,6 +61,14 @@ wss.on('connection', function connection(client) {
                 {
                     let myLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
                     myLobby.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+                }
+                break;
+            case "clock":
+                {
+                    let timestamp = {};
+                    timestamp.method = "clock";
+                    timestamp.timestamp = new Date().getTime() / 1000.0;
+                    client.send(JSON.stringify(timestamp));
                 }
                 break;
             case "bullet":

@@ -28,14 +28,15 @@ public class PlayerMovement : MonoBehaviour
             GameValues.me.rotation = transform.rotation;
             GameValues.me.velocity = rb.velocity;
             if(repeat++ % 10 == 0){
-                repeat = 1;
-                System.DateTime epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-                double timestamp = (System.DateTime.UtcNow - epochStart).TotalSeconds;
+                double timestamp = Clock.getTime();
                 GameValues.me.timestamp = timestamp;
                 GameValues.me.method = "game";
                 GameValues.me.newData = true;
                 string playerDataJSON = JsonUtility.ToJson(GameValues.me);
                 GameValues.socket.Send(playerDataJSON); 
+            }
+            if(repeat % 100 == 0){
+                Clock.startSync();
             }
     }
 }

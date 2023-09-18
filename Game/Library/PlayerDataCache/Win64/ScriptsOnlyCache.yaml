@@ -1278,4 +1278,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Game.unity
   - Assets/Scenes/Lobby.unity
-  playerPath: E:/Game/Game.exe
+  playerPath: C:/Onlab/build/Game.exe

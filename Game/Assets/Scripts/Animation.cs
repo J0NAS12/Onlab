@@ -14,6 +14,7 @@ public class Animation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(mAnimator!=null){
             if(Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0){
                 mAnimator.SetTrigger("Walk");
@@ -21,6 +22,8 @@ public class Animation : MonoBehaviour
             else{
                 mAnimator.SetTrigger("Stop");
             }
+            
         }
+        */
     }
 }

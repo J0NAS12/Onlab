@@ -16,12 +16,17 @@ public class Clock : MonoBehaviour
 
     public static void synchronize(double timestamp){
         double endTime = (System.DateTime.UtcNow - epochStart).TotalSeconds;
-        delta = ((startTime + endTime) / 2.0)- timestamp;
+        delta = ((startTime + endTime) / 2.0) - timestamp;
         Debug.Log("delta: "+ delta);
+    }
+
+    class ClockObject{
+        public string method = "clock";
     }
 
     public static void startSync(){
         startTime = (System.DateTime.UtcNow - epochStart).TotalSeconds;
+        GameValues.socket.Send(JsonUtility.ToJson(new ClockObject()));
         Debug.Log("startTime: " + startTime);
     }
 
