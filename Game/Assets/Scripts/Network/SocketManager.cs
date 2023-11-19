@@ -33,7 +33,7 @@ public class SocketManager : MonoBehaviour
     public void Reconnect(){
         socket.Connect();
         if(socket.IsAlive){
-                        Clock.startSync();
+            Clock.startSync();
             reconnect.SetActive(false);
             errormessage.text = "";
             connectedPanel.SetActive(true);

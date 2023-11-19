@@ -41,7 +41,82 @@ function startGame(game, input) {
     return gameSettings;
 }
 
+function synchronizeClock(client){
+        let timestamp = {};
+        timestamp.method = "clock";
+        timestamp.timestamp = new Date().getTime() / 1000.0;
+        client.send(JSON.stringify(timestamp));
+}
 
+function sendToAllClients(client, dataJSON){
+    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+    game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+}
+
+function sendBullet(client, dataJSON){
+    let game = games.find((e) => dataJSON.shooter.lobbyID === e.lobbyID);
+    game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
+}
+
+function updateClient(client){
+    let lobbiesJSon = JSON.stringify(getGames());
+    client.send(lobbiesJSon);
+}
+
+function createGame(client, dataJSON){
+    dataJSON.lobbyID = uuid();
+    dataJSON.clients = [];
+    dataJSON.clients.push(client);
+    let response = {
+        lobbyID: dataJSON.lobbyID,
+        players: dataJSON.players,
+        method: "createGame"
+    };
+    games.push(dataJSON);
+    client.send(JSON.stringify(response));
+    updateAllClients();
+}
+
+function joinGame(client, dataJSON){
+        let joinLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+        joinLobby.players.push(dataJSON);
+        joinLobby.clients.push(client);
+        let response = {
+            lobbyID: dataJSON.lobbyID,
+            players: joinLobby.players,
+            method: "updateGame"
+        };
+        joinLobby.clients.forEach((e) => {
+            e.send(JSON.stringify(response));
+        });
+}
+
+function leaveGame(client, dataJSON){
+    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+    game.players.splice(game.clients.indexOf(client), 1);
+    game.clients.splice(game.clients.indexOf(client), 1);
+    if (game.players.length === 0) {
+        games.splice(games.indexOf(game), 1);
+        updateAllClients();
+    }
+    let response = {
+        lobbyID: dataJSON.lobbyID,
+        players: game.players,
+        method: "updateGame"
+    };
+    game.clients.forEach((e) => {
+        e.send(JSON.stringify(response));
+    });
+}
+
+function startGameforAll(dataJSON){
+    {
+        let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+        game.clients.forEach((e) => {
+            e.send(JSON.stringify(startGame(game, dataJSON)));
+        });
+    }
+}
 
 wss.on('connection', function connection(client) {
 
@@ -52,96 +127,28 @@ wss.on('connection', function connection(client) {
 
     //Method retrieves message from client
     client.on('message', (data) => {
-        let dataJSON = JSON.parse(data);
-        console.log("Player Message");
-        console.log(dataJSON);
-        switch (dataJSON.method) {
+        let dataObject = JSON.parse(data);
+        switch (dataObject.method) {
             case "hit":
             case "game":
-                {
-                    let myLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-                    myLobby.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
-                }
-                break;
+                sendToAllClients(client, dataObject); break;
             case "clock":
-                {
-                    let timestamp = {};
-                    timestamp.method = "clock";
-                    timestamp.timestamp = new Date().getTime() / 1000.0;
-                    client.send(JSON.stringify(timestamp));
-                }
-                break;
+                synchronizeClock(client); break;
             case "bullet":
-                {
-                let game = games.find((e) => dataJSON.shooter.lobbyID === e.lobbyID);
-                game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
-                }
-                break;
+                sendBullet(client, dataObject); break;
             case "getGames":
-                let lobbiesJSon = JSON.stringify(getGames());
-                client.send(lobbiesJSon);
-                break;
+                updateClient(client, dataObject); break;
             case "createGame":
-                dataJSON.lobbyID = uuid();
-                dataJSON.clients = [];
-                dataJSON.clients.push(client);
-                let response = {
-                    lobbyID: dataJSON.lobbyID,
-                    players: dataJSON.players,
-                    method: "createGame"
-                };
-                games.push(dataJSON);
-                client.send(JSON.stringify(response));
-                updateAllClients();
-                break;
+                createGame(client, dataObject); break;
             case "joinGame":
-                {
-                    let joinLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-                    joinLobby.players.push(dataJSON);
-                    joinLobby.clients.push(client);
-                    let response = {
-                        lobbyID: dataJSON.lobbyID,
-                        players: joinLobby.players,
-                        method: "updateGame"
-                    };
-                    joinLobby.clients.forEach((e) => {
-                        e.send(JSON.stringify(response));
-                    });
-                    break;
-                }
+                joinGame(client, dataObject); break;
             case "leaveGame":
-                {
-                    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-                    game.players.splice(game.clients.indexOf(client), 1);
-                    game.clients.splice(game.clients.indexOf(client), 1);
-                    if (game.players.length === 0) {
-                        games.splice(games.indexOf(game), 1);
-                        updateAllClients();
-                    }
-                    let response = {
-                        lobbyID: dataJSON.lobbyID,
-                        players: game.players,
-                        method: "updateGame"
-                    };
-                    game.clients.forEach((e) => {
-                        e.send(JSON.stringify(response));
-                    });
-
-                }
-                break;
+                leaveGame(client, dataObject); break;
             case "startGame":
-                {
-                    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-                    game.clients.forEach((e) => {
-                        console.log(startGame(game, dataJSON));
-                        e.send(JSON.stringify(startGame(game, dataJSON)));
-                    });
-                }
-                break;
+                startGameforAll(dataObject); break;
             default:
                 console.log("wrong method");
         }
-
     });
 
     //Method notifies when client disconnects

@@ -11,7 +11,7 @@ public class Clock : MonoBehaviour
 
 
     public static double getTime(){
-        return (System.DateTime.UtcNow - epochStart).TotalSeconds + delta;
+        return (System.DateTime.UtcNow - epochStart).TotalSeconds - delta;
     }
 
     public static void synchronize(double timestamp){
