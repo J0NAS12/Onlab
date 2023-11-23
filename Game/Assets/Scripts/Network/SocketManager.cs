@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using TMPro;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SocketManager : MonoBehaviour
 {
@@ -60,7 +56,6 @@ public class SocketManager : MonoBehaviour
             //WebSocket onMessage function
             socket.OnMessage += (sender, e) =>
             {
-
                 if (e.IsText)
                 {
                     JObject jsonObj = JObject.Parse(e.Data);

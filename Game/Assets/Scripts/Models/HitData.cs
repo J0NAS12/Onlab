@@ -8,7 +8,6 @@ public struct HitData
 {
     public string method;
     public string lobbyID;
-
     public PlayerData player;
     public int shooter;
 

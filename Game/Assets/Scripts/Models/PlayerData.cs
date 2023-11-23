@@ -18,5 +18,4 @@ public class PlayerData
     public Vector3 velocity;
     public bool newData;
     public double timestamp;
-
 }

@@ -13,14 +13,6 @@ public class Gun : MonoBehaviour {
     [Header("Magazine")]
     public GameObject round;
 
-
-    private int remainingAmmunition;
-
-    [Header("Shooting")]
-    // How many shots the gun can make per second
-    [Range(0.25f, 25)] public float fireRate;
-
-
     [Range(0.5f, 100)] public float roundSpeed;
 
 

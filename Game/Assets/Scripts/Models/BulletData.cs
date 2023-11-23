@@ -7,7 +7,6 @@ using System;
 public struct BulletData
 {
     public string method;
-
     public PlayerData shooter;
     public Vector3 startPoint;
     public Quaternion rotation;
