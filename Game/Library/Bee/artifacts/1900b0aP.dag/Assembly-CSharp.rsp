@@ -303,7 +303,6 @@
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.VisualScripting.Flow.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.VisualScripting.State.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/UnityEngine.UI.ref.dll"
-"Assets/Scripts/Animation.cs"
 "Assets/Scripts/ChangeScene.cs"
 "Assets/Scripts/GamesListUpdate.cs"
 "Assets/Scripts/GameValues.cs"

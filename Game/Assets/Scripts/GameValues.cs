@@ -14,10 +14,10 @@ public class GameValues : MonoBehaviour
     public static WebSocket socket;
     public static int spidersLeft = 0;
     public static PlayerData me = new PlayerData{
-        lobbyID = null,
+        roomID = null,
         id = "id",
         name = null,
-        lobbyName = null,
+        roomName = null,
         kills = 0,
         wins = 0,
         alive = true
@@ -26,9 +26,9 @@ public class GameValues : MonoBehaviour
     public static List<HitData> hitList = new List<HitData>();
 
     public static MazeData maze;
-    public static List<GameData> lobbies = new List<GameData>();
+    public static List<GameData> rooms = new List<GameData>();
 
-    public static List<PlayerData> lobbyPlayers = new List<PlayerData>();
+    public static List<PlayerData> roomPlayers = new List<PlayerData>();
 
 
     public void ChangeName(string value){
@@ -36,7 +36,7 @@ public class GameValues : MonoBehaviour
     }
 
     public void ChangeLobbyName(string value){
-        me.lobbyName = value;
+        me.roomName = value;
     }
         public void ChangeIp(string value){
         serverip = value;

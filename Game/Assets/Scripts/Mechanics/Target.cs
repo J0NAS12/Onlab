@@ -14,7 +14,7 @@ public class Target : MonoBehaviour {
             var hitData = new HitData(){
                 method = "hit",
                 player = GameValues.me,
-                lobbyID = GameValues.me.lobbyID,
+                roomID = GameValues.me.roomID,
                 shooter = lasthit
             };
             Destroy(gameObject);

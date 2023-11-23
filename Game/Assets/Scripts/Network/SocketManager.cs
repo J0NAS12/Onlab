@@ -27,19 +27,22 @@ public class SocketManager : MonoBehaviour
     }
 
     public void Reconnect(){
-        socket.Connect();
-        if(socket.IsAlive){
-            Clock.startSync();
-            reconnect.SetActive(false);
-            errormessage.text = "";
-            connectedPanel.SetActive(true);
-        }
-        else{
-            GameValues.socket = null;
-            reconnect.SetActive(true);
-            Debug.Log("Finished");
-            errormessage.text = "Couldn't connect to the server.";
-            connectedPanel.SetActive(false);
+        try{
+            socket.Connect();
+        }finally{
+            if(socket.IsAlive){
+                Clock.startSync();
+                reconnect.SetActive(false);
+                errormessage.text = "";
+                connectedPanel.SetActive(true);
+            }
+            else{
+                GameValues.socket = null;
+                reconnect.SetActive(true);
+                Debug.Log("Finished");
+                errormessage.text = "Couldn't connect to the server.";
+                connectedPanel.SetActive(false);
+            }
         }
     }
 
@@ -48,11 +51,11 @@ public class SocketManager : MonoBehaviour
 
         if (GameValues.socket == null)
         {
+
             errormessage.text = "Connecting...";
             Debug.Log("Connecting");
             socket = new WebSocket("ws://" + GameValues.serverip);
             GameValues.socket = socket;
-
             //WebSocket onMessage function
             socket.OnMessage += (sender, e) =>
             {
@@ -68,7 +71,7 @@ public class SocketManager : MonoBehaviour
                         case "game":
                             var playerData = JsonUtility.FromJson<PlayerData>(e.Data);
                             if(playerData.id != GameValues.me.id){
-                                GameValues.lobbyPlayers[playerData.index] = playerData;
+                                GameValues.roomPlayers[playerData.index] = playerData;
                             }
                             break;
                         case "bullet":
@@ -78,30 +81,30 @@ public class SocketManager : MonoBehaviour
                             }
                             break;
                         case "createGame":
-                            var lobbyData = JsonUtility.FromJson<GameData>(e.Data);
-                            GameValues.me.lobbyID = lobbyData.lobbyID;
-                            GameValues.lobbyPlayers = (lobbyData.players);
+                            var roomData = JsonUtility.FromJson<GameData>(e.Data);
+                            GameValues.me.roomID = roomData.roomID;
+                            GameValues.roomPlayers = (roomData.players);
                             GameValues.playersChanged = true;
                             break;
-                        case "getGames":
-                            var lobbiesData = JsonUtility.FromJson<GameList>(e.Data);
-                            GameValues.lobbies = lobbiesData.lobbies;
+                        case "getRooms":
+                            var roomsData = JsonUtility.FromJson<GameList>(e.Data);
+                            GameValues.rooms = roomsData.rooms;
                             GameValues.listHasChanged = true;
                             break;
                         case "updateGame":
                             var updated = JsonUtility.FromJson<GameData>(e.Data);
-                            GameValues.lobbyPlayers = updated.players;
-                            GameValues.me.index = GameValues.lobbyPlayers.IndexOf(GameValues.lobbyPlayers.Find(x=>x.id == GameValues.me.id));
+                            GameValues.roomPlayers = updated.players;
+                            GameValues.me.index = GameValues.roomPlayers.IndexOf(GameValues.roomPlayers.Find(x=>x.id == GameValues.me.id));
                             GameValues.playersChanged = true;
                             break;
                         case "id":
                             GameValues.me.id = (string)jsonObj["id"];
                             break;
                         case "startGame":
-                            for(var i=0;i<GameValues.lobbyPlayers.Count; i++){
-                                GameValues.lobbyPlayers[i].alive = true;
+                            for(var i=0;i<GameValues.roomPlayers.Count; i++){
+                                GameValues.roomPlayers[i].alive = true;
                             }
-                            GameValues.spidersLeft = GameValues.lobbyPlayers.Count;
+                            GameValues.spidersLeft = GameValues.roomPlayers.Count;
                             var data = JsonUtility.FromJson<GameData>(e.Data);
                             GameValues.maze = data.maze;
                             GameValues.startGame = true;

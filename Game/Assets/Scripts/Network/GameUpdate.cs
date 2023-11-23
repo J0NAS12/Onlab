@@ -12,11 +12,11 @@ public class GameUpdate : MonoBehaviour
     public TextMeshProUGUI lobbyName;
     void Start()
     {
-        if(GameValues.me.lobbyID == null){
+        if(GameValues.me.roomID == null){
             var gameData = new GameData{
-                method = "createGame",
+                method = "createRoom",
                 ID = GameValues.me.id,
-                lobbyName = GameValues.me.lobbyName,
+                roomName = GameValues.me.roomName,
                 players = new List<PlayerData>()
         };
         gameData.players.Add(GameValues.me);
@@ -34,9 +34,9 @@ public class GameUpdate : MonoBehaviour
         }
         if(GameValues.playersChanged){
             GameValues.playersChanged = false;
-            lobbyName.text = GameValues.me.lobbyName;
+            lobbyName.text = GameValues.me.roomName;
             string list = "Players:\tKills\tWins\n";
-            foreach(var p in GameValues.lobbyPlayers){
+            foreach(var p in GameValues.roomPlayers){
                 list += p.name + "\t" + p.kills + "\t" + p.wins + "\n";
             }
             playersList.text = list;
@@ -51,15 +51,15 @@ public class GameUpdate : MonoBehaviour
         GameValues.me.alive = true;
         GameValues.me.kills = 0;
         GameValues.me.wins = 0;
-        var lobbyLeave = new GameData{
-            method = "leaveGame",
+        var roomLeave = new GameData{
+            method = "leaveRoom",
             ID = GameValues.me.id,
-            lobbyID = GameValues.me.lobbyID,
-            lobbyName = GameValues.me.lobbyName
+            roomID = GameValues.me.roomID,
+            roomName = GameValues.me.roomName
         };
-        GameValues.socket.Send(JsonUtility.ToJson(lobbyLeave));
-        GameValues.me.lobbyName = null;
-        GameValues.me.lobbyID = null;
+        GameValues.socket.Send(JsonUtility.ToJson(roomLeave));
+        GameValues.me.roomName = null;
+        GameValues.me.roomID = null;
         SceneManager.LoadScene("Menu");
     }
 

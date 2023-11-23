@@ -17,8 +17,8 @@ public class GamesListUpdate : MonoBehaviour
     {
         try
         {
-            var getLobbies = "{\"method\" : \"getGames\"}";
-            GameValues.socket.Send(getLobbies);
+            var getRooms = "{\"method\" : \"getRooms\"}";
+            GameValues.socket.Send(getRooms);
         }catch (Exception){}
 
     }
@@ -31,11 +31,11 @@ public class GamesListUpdate : MonoBehaviour
             foreach(Transform c in panel.transform){
                 Destroy(c.gameObject);
             }
-            for (var i = 0; i<GameValues.lobbies.Count; i++){
-                var v = GameValues.lobbies[i];
+            for (var i = 0; i<GameValues.rooms.Count; i++){
+                var v = GameValues.rooms[i];
                 GameObject g = Instantiate (buttonTemplate, panel.transform);
                 g.SetActive(true);
-                g.transform.GetChild (0).GetComponent <TextMeshProUGUI> ().text = v.lobbyName;
+                g.transform.GetChild (0).GetComponent <TextMeshProUGUI> ().text = v.roomName;
                 g.name = i.ToString();
                 g.GetComponent<Button>().onClick.AddListener(()=>ButtonClicked(int.Parse(g.name)));
             }
@@ -43,13 +43,13 @@ public class GamesListUpdate : MonoBehaviour
     }
 
     void ButtonClicked(int i){
-        GameValues.me.lobbyID = GameValues.lobbies[i].lobbyID;
-        GameValues.me.lobbyName = GameValues.lobbies[i].lobbyName;
+        GameValues.me.roomID = GameValues.rooms[i].roomID;
+        GameValues.me.roomName = GameValues.rooms[i].roomName;
         GameValues.me.alive = true;
         GameValues.me.kills = 0;
         GameValues.me.wins = 0;
         var me = GameValues.me;
-        me.method = "joinGame";
+        me.method = "joinRoom";
         GameValues.socket.Send(JsonUtility.ToJson(me));
         SceneManager.LoadScene("Lobby");
     }

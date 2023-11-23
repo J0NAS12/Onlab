@@ -19,7 +19,7 @@ public class CreateMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameValues.spidersLeft = GameValues.lobbyPlayers.Count;
+        GameValues.spidersLeft = GameValues.roomPlayers.Count;
         if (GameValues.maze.cells == null || GameValues.maze.cells.Count == 0)
         {
             mazeInstance = Instantiate(mazePrefab) as Maze;
@@ -41,7 +41,7 @@ public class CreateMap : MonoBehaviour
             var gameStart = new GameData
             {
                 method = "startGame",
-                lobbyID = GameValues.me.lobbyID,
+                roomID = GameValues.me.roomID,
                 maze = GameValues.maze
             };
             GameValues.socket.Send(JsonUtility.ToJson(gameStart));
@@ -53,9 +53,9 @@ public class CreateMap : MonoBehaviour
         }
 
 
-        for (int i = 0; i < GameValues.lobbyPlayers.Count; i++)
+        for (int i = 0; i < GameValues.roomPlayers.Count; i++)
         {
-            GameValues.lobbyPlayers[i].position = positions[i];
+            GameValues.roomPlayers[i].position = positions[i];
             GameObject spider;
             if (i == GameValues.me.index)
             {
@@ -82,9 +82,9 @@ public class CreateMap : MonoBehaviour
                 GameValues.hitList.Remove(hit);
                 Destroy(players[hit.player.index]);
                 GameValues.spidersLeft--;
-                GameValues.lobbyPlayers[hit.player.index].alive = false;
-                GameValues.lobbyPlayers[hit.shooter].kills++;
-                GameValues.me.kills = GameValues.lobbyPlayers[GameValues.me.index].kills;
+                GameValues.roomPlayers[hit.player.index].alive = false;
+                GameValues.roomPlayers[hit.shooter].kills++;
+                GameValues.me.kills = GameValues.roomPlayers[GameValues.me.index].kills;
             }
             while (GameValues.bulletList.Count != 0)
             {

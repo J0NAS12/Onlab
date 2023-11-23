@@ -22,9 +22,9 @@ public class OpponentMovement : MonoBehaviour
     void Awake() => rb = GetComponent<Rigidbody>();
 
     void FixedUpdate() {
-        if(GameValues.lobbyPlayers[index].newData){
-            GameValues.lobbyPlayers[index].newData = false;
-            SetTargetPosition(GameValues.lobbyPlayers[index]);
+        if(GameValues.roomPlayers[index].newData){
+            GameValues.roomPlayers[index].newData = false;
+            SetTargetPosition(GameValues.roomPlayers[index]);
         }
         interpolationTime += Time.deltaTime;
         float t = Mathf.Clamp01(interpolationTime / interpolationDuration);

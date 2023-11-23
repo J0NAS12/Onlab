@@ -23,18 +23,18 @@ public class updateStats : MonoBehaviour
         if (GameValues.spidersLeft <= 1 && !started)
         {
             started = true;
-            GameValues.lobbyPlayers.Find(x => x.alive).wins++;
-            GameValues.me.wins = GameValues.lobbyPlayers[GameValues.me.index].wins;
+            GameValues.roomPlayers.Find(x => x.alive).wins++;
+            GameValues.me.wins = GameValues.roomPlayers[GameValues.me.index].wins;
             StartCoroutine(Order());
 
         }
     }
     IEnumerator Order()
     {
-        winner.text = "Winner: " + GameValues.lobbyPlayers.Find(x => x.alive).name;
+        winner.text = "Winner: " + GameValues.roomPlayers.Find(x => x.alive).name;
         GameValues.startGame = false;
         GameValues.playersChanged = true;
-        Debug.Log(GameValues.lobbyPlayers.Count);
+        Debug.Log(GameValues.roomPlayers.Count);
         GameValues.maze.cells = null;
         yield return new WaitForSeconds(5.0f);
         SceneManager.LoadScene("Lobby");

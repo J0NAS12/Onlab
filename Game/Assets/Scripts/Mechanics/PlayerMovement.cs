@@ -3,11 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    //Values setted at inspector
     [SerializeField]public float speed;
     [SerializeField]public float rotationSpeed;
 
-    int repeat = 0;
+    private int repeat = 0;
 
     public float drag;
  

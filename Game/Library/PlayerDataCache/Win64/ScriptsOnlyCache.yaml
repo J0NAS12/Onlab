@@ -1,7 +1,6 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - Animation
     - Bullet
     - ChangeScene
     - CharacterShooting
@@ -165,45 +164,45 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 1582}
+      Script: {instanceID: 1610}
     - Class: 114
-      Script: {instanceID: 2122}
+      Script: {instanceID: 2150}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2596}
     - Class: 114
-      Script: {instanceID: 2770}
+      Script: {instanceID: 2798}
     - Class: 114
-      Script: {instanceID: 3082}
+      Script: {instanceID: 3110}
     - Class: 114
-      Script: {instanceID: 3214}
+      Script: {instanceID: 3242}
     - Class: 114
-      Script: {instanceID: 3674}
+      Script: {instanceID: 3702}
     - Class: 114
-      Script: {instanceID: 4966}
+      Script: {instanceID: 4994}
     - Class: 114
-      Script: {instanceID: 5510}
+      Script: {instanceID: 5538}
     - Class: 114
-      Script: {instanceID: 5654}
+      Script: {instanceID: 5682}
     - Class: 114
-      Script: {instanceID: 5808}
+      Script: {instanceID: 5836}
     - Class: 114
-      Script: {instanceID: 5882}
+      Script: {instanceID: 5910}
     - Class: 114
-      Script: {instanceID: 5956}
+      Script: {instanceID: 5984}
     - Class: 114
-      Script: {instanceID: 5970}
+      Script: {instanceID: 5998}
     - Class: 114
-      Script: {instanceID: 6052}
+      Script: {instanceID: 6080}
     - Class: 114
-      Script: {instanceID: 6510}
+      Script: {instanceID: 6538}
     - Class: 114
-      Script: {instanceID: 6924}
+      Script: {instanceID: 6952}
     - Class: 114
-      Script: {instanceID: 7078}
+      Script: {instanceID: 7106}
     - Class: 114
-      Script: {instanceID: 7080}
+      Script: {instanceID: 7108}
     - Class: 114
-      Script: {instanceID: 7512}
+      Script: {instanceID: 7540}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -250,21 +249,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2596}
     - Class: 114
-      Script: {instanceID: 2770}
+      Script: {instanceID: 2798}
     - Class: 114
-      Script: {instanceID: 3042}
+      Script: {instanceID: 3070}
     - Class: 114
-      Script: {instanceID: 4544}
+      Script: {instanceID: 4572}
     - Class: 114
-      Script: {instanceID: 4966}
+      Script: {instanceID: 4994}
     - Class: 114
-      Script: {instanceID: 5510}
+      Script: {instanceID: 5538}
     - Class: 114
-      Script: {instanceID: 5654}
+      Script: {instanceID: 5682}
     - Class: 114
-      Script: {instanceID: 5970}
+      Script: {instanceID: 5998}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -307,49 +306,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 1710}
+      Script: {instanceID: 1738}
     - Class: 114
-      Script: {instanceID: 2160}
+      Script: {instanceID: 2188}
     - Class: 114
-      Script: {instanceID: 2568}
+      Script: {instanceID: 2596}
     - Class: 114
-      Script: {instanceID: 2770}
+      Script: {instanceID: 2798}
     - Class: 114
-      Script: {instanceID: 3042}
+      Script: {instanceID: 3070}
     - Class: 114
-      Script: {instanceID: 3610}
+      Script: {instanceID: 3638}
     - Class: 114
-      Script: {instanceID: 3802}
+      Script: {instanceID: 3830}
     - Class: 114
-      Script: {instanceID: 3806}
+      Script: {instanceID: 3834}
     - Class: 114
-      Script: {instanceID: 4022}
+      Script: {instanceID: 4050}
     - Class: 114
-      Script: {instanceID: 4036}
+      Script: {instanceID: 4064}
     - Class: 114
-      Script: {instanceID: 4284}
+      Script: {instanceID: 4312}
     - Class: 114
-      Script: {instanceID: 4418}
+      Script: {instanceID: 4446}
     - Class: 114
-      Script: {instanceID: 4788}
+      Script: {instanceID: 4816}
     - Class: 114
-      Script: {instanceID: 4904}
+      Script: {instanceID: 4932}
     - Class: 114
-      Script: {instanceID: 4966}
+      Script: {instanceID: 4994}
     - Class: 114
-      Script: {instanceID: 5510}
+      Script: {instanceID: 5538}
     - Class: 114
-      Script: {instanceID: 5654}
+      Script: {instanceID: 5682}
     - Class: 114
-      Script: {instanceID: 5724}
+      Script: {instanceID: 5752}
     - Class: 114
-      Script: {instanceID: 5970}
+      Script: {instanceID: 5998}
     - Class: 114
-      Script: {instanceID: 5978}
+      Script: {instanceID: 6006}
     - Class: 114
-      Script: {instanceID: 6370}
+      Script: {instanceID: 6398}
     - Class: 114
-      Script: {instanceID: 6996}
+      Script: {instanceID: 7024}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -429,7 +428,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: c2fcef4cbb616e5e547314840d595b1c
+      Hash: 91ae017c40ecd8a8baca37ba84636b69
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Gun
@@ -627,12 +626,6 @@ ScriptsOnlyBuild:
     className: ContentSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Animation
-  - hash:
-      serializedVersion: 2
       Hash: 2574ac7d50617d23cdefe4ad22f5e1ad
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -807,7 +800,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 7ebb5f6729e883862b71fb27db91d437
+      Hash: 7c4ed18a86aafcb61f83a031455da07a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SocketManager
@@ -1047,7 +1040,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: 3848283e953bfc9a16f16274c7f1519b
+      Hash: 41762b605ab2465fb6f701b9e3946a84
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CharacterShooting

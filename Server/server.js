@@ -10,23 +10,23 @@ let games = [];
 let clients = [];
 
 
-function getGames() {
+function getRooms() {
     let gameList = {};
-    gameList.method = "getGames";
-    gameList.lobbies = [];
-    games.forEach((lobby) => {
-        let newlobby = {};
-        newlobby.lobbyID = lobby.lobbyID;
-        newlobby.lobbyName = lobby.lobbyName;
-        gameList.lobbies.push(newlobby);
+    gameList.method = "getRooms";
+    gameList.rooms = [];
+    games.forEach((room) => {
+        let newroom = {};
+        newroom.roomID = room.roomID;
+        newroom.roomName = room.roomName;
+        gameList.rooms.push(newroom);
     });
     return gameList;
 }
 
 function updateAllClients() {
-    let lobbiesJSon = JSON.stringify(getGames());
+    let roomsJSON = JSON.stringify(getRooms());
     clients.forEach((c) => {
-        c.send(lobbiesJSon);
+        c.send(roomsJSON);
     });
 }
 
@@ -49,26 +49,26 @@ function synchronizeClock(client){
 }
 
 function sendToAllClients(client, dataJSON){
-    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+    let game = games.find((e) => dataJSON.roomID === e.roomID);
     game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
 }
 
 function sendBullet(client, dataJSON){
-    let game = games.find((e) => dataJSON.shooter.lobbyID === e.lobbyID);
+    let game = games.find((e) => dataJSON.shooter.roomID === e.roomID);
     game.clients.forEach(c => {c.send(JSON.stringify(dataJSON));});
 }
 
 function updateClient(client){
-    let lobbiesJSon = JSON.stringify(getGames());
-    client.send(lobbiesJSon);
+    let roomsJSON = JSON.stringify(getRooms());
+    client.send(roomsJSON);
 }
 
-function createGame(client, dataJSON){
-    dataJSON.lobbyID = uuid();
+function createRoom(client, dataJSON){
+    dataJSON.roomID = uuid();
     dataJSON.clients = [];
     dataJSON.clients.push(client);
     let response = {
-        lobbyID: dataJSON.lobbyID,
+        roomID: dataJSON.roomID,
         players: dataJSON.players,
         method: "createGame"
     };
@@ -77,41 +77,41 @@ function createGame(client, dataJSON){
     updateAllClients();
 }
 
-function joinGame(client, dataJSON){
-        let joinLobby = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-        joinLobby.players.push(dataJSON);
-        joinLobby.clients.push(client);
+function joinRoom(client, dataJSON){
+        let joinroom = games.find((e) => dataJSON.roomID === e.roomID);
+        joinroom.players.push(dataJSON);
+        joinroom.clients.push(client);
         let response = {
-            lobbyID: dataJSON.lobbyID,
-            players: joinLobby.players,
+            roomID: dataJSON.roomID,
+            players: joinroom.players,
             method: "updateGame"
         };
-        joinLobby.clients.forEach((e) => {
+        joinroom.clients.forEach((e) => {
             e.send(JSON.stringify(response));
         });
 }
 
-function leaveGame(client, dataJSON){
-    let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
-    game.players.splice(game.clients.indexOf(client), 1);
-    game.clients.splice(game.clients.indexOf(client), 1);
-    if (game.players.length === 0) {
-        games.splice(games.indexOf(game), 1);
+function leaveRoom(client, dataJSON){
+    let room = games.find((e) => dataJSON.roomID === e.roomID);
+    room.players.splice(room.clients.indexOf(client), 1);
+    room.clients.splice(room.clients.indexOf(client), 1);
+    if (room.players.length === 0) {
+        games.splice(games.indexOf(room), 1);
         updateAllClients();
     }
     let response = {
-        lobbyID: dataJSON.lobbyID,
-        players: game.players,
+        roomID: dataJSON.roomID,
+        players: room.players,
         method: "updateGame"
     };
-    game.clients.forEach((e) => {
+    room.clients.forEach((e) => {
         e.send(JSON.stringify(response));
     });
 }
 
 function startGameforAll(dataJSON){
     {
-        let game = games.find((e) => dataJSON.lobbyID === e.lobbyID);
+        let game = games.find((e) => dataJSON.roomID === e.roomID);
         game.clients.forEach((e) => {
             e.send(JSON.stringify(startGame(game, dataJSON)));
         });
@@ -136,18 +136,18 @@ wss.on('connection', function connection(client) {
                 synchronizeClock(client); break;
             case "bullet":
                 sendBullet(client, dataObject); break;
-            case "getGames":
+            case "getRooms":
                 updateClient(client, dataObject); break;
-            case "createGame":
-                createGame(client, dataObject); break;
-            case "joinGame":
-                joinGame(client, dataObject); break;
-            case "leaveGame":
-                leaveGame(client, dataObject); break;
+            case "createRoom":
+                createRoom(client, dataObject); break;
+            case "joinRoom":
+                joinRoom(client, dataObject); break;
+            case "leaveRoom":
+                leaveRoom(client, dataObject); break;
             case "startGame":
                 startGameforAll(dataObject); break;
             default:
-                console.log("wrong method");
+                console.log(`wrong method: ${dataObject.method}`);
         }
     });
 
@@ -158,7 +158,7 @@ wss.on('connection', function connection(client) {
         clients.splice(clients.indexOf(client), 1);
         let index = games.findIndex((x) => x.clients.find((x) => x === client));
         if (index >= 0) {
-            console.log("Client was in lobby: " + games[index].lobbyID);
+            console.log("Client was in room: " + games[index].roomID);
             games[index].players.splice(games[index].clients.indexOf(client), 1);
             games[index].clients.splice(games[index].clients.indexOf(client), 1);
             if (games[index].players.length === 0) {
@@ -175,10 +175,10 @@ wss.on('connection', function connection(client) {
     console.log("Sent back");
     console.log(JSON.stringify(id));
 
-    let lobbiesJSon = JSON.stringify(getGames());
-    client.send(lobbiesJSon);
+    let roomsJSON = JSON.stringify(getRooms());
+    client.send(roomsJSON);
     console.log("Response");
-    console.log(lobbiesJSon);
+    console.log(roomsJSON);
 
 })
 

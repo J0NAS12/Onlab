@@ -7,7 +7,7 @@ using UnityEngine;
 public struct HitData
 {
     public string method;
-    public string lobbyID;
+    public string roomID;
     public PlayerData player;
     public int shooter;
 

@@ -7,5 +7,5 @@ using UnityEngine;
 public struct GameList
 {
     public string method;
-    public List<GameData> lobbies;
+    public List<GameData> rooms;
 }
