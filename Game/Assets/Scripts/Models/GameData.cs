@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public struct GameData
+public class GameData : IData
 {
-    public string method;
     public string roomID;
     public string roomName;
     public string ID;

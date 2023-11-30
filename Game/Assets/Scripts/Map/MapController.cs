@@ -1,0 +1,116 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MapController : MonoBehaviour
+{
+    public Maze mazePrefab;
+    private Maze mazeInstance;
+    public GameObject round;
+    public GameObject me;
+    public GameObject opponents;
+    public Vector3[] positions;
+    public static List<GameObject> players = new List<GameObject>();
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameValues.spidersLeft = GameValues.roomPlayers.Count;
+        if (GameValues.maze.cells == null || GameValues.maze.cells.Count == 0)
+        {
+            mazeInstance = Instantiate(mazePrefab) as Maze;
+            mazeInstance.Generate();
+            GameValues.maze.cells = new List<MazeCellData>();
+            foreach (var item in mazeInstance.cells)
+            {
+                var data = new MazeCellData
+                {
+                    north = item.GetEdge(MazeDirection.North).Type,
+                    south = item.GetEdge(MazeDirection.South).Type,
+                    east = item.GetEdge(MazeDirection.East).Type,
+                    west = item.GetEdge(MazeDirection.West).Type,
+                    room = item.room.settingsIndex,
+                    position = item.coordinates
+                };
+                GameValues.maze.cells.Add(data);
+            }
+            var gameStart = new GameData
+            {
+                method = "startGame",
+                roomID = GameValues.me.roomID,
+                maze = GameValues.maze
+            };
+            gameStart.SendToServer();
+        }
+        else
+        {
+            mazeInstance = Instantiate(mazePrefab) as Maze;
+            mazeInstance.Load();
+        }
+
+
+        for (int i = 0; i < GameValues.roomPlayers.Count; i++)
+        {
+            GameValues.roomPlayers[i].position = positions[i];
+            GameObject spider;
+            if (i == GameValues.me.index)
+            {
+                spider = Instantiate(me) as GameObject;
+            }
+            else
+            {
+                spider = Instantiate(opponents) as GameObject;
+                spider.GetComponent<OpponentMovement>().index = i;
+            }
+            spider.name = i.ToString();
+            players.Add(spider);
+            spider.transform.position = positions[i];
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        try
+        {
+            HitHandler();
+            BulletHandler();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
+
+    private void HitHandler(){
+        while (GameValues.hitList.Count != 0)
+        {
+            var hit = GameValues.hitList[0];
+            GameValues.hitList.Remove(hit);
+            Destroy(players[hit.player.index]);
+            GameValues.spidersLeft--;
+            GameValues.roomPlayers[hit.player.index].alive = false;
+            GameValues.roomPlayers[hit.shooter].kills++;
+            GameValues.me.kills = GameValues.roomPlayers[GameValues.me.index].kills;
+        }
+    }
+
+    private void BulletHandler(){
+        while (GameValues.bulletList.Count != 0)
+        {
+            var bullet = GameValues.bulletList[0];
+            GameValues.bulletList.Remove(bullet);
+            GameObject spawnedRound = Instantiate(
+                round,
+                bullet.startPoint,
+                bullet.rotation
+            );
+            spawnedRound.name = bullet.shooter.index.ToString();
+            Rigidbody rb = spawnedRound.GetComponent<Rigidbody>();
+            rb.velocity = spawnedRound.transform.forward * bullet.speed;
+            double timestamp = Clock.getTime();
+            spawnedRound.transform.position += spawnedRound.transform.forward * bullet.speed * (float)(timestamp - bullet.timestamp);
+        }
+    }
+}

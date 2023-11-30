@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct HitData
+public class HitData : IData
 {
-    public string method;
     public string roomID;
     public PlayerData player;
     public int shooter;

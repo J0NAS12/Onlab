@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct GameList
+public class GameList : IData
 {
-    public string method;
     public List<GameData> rooms;
 }

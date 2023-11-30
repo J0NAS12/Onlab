@@ -6,7 +6,6 @@ using TMPro;
 public class SocketManager : MonoBehaviour
 {
     public static WebSocket socket;
-    public PlayerData playerData;
     public GameObject reconnect;
     public TextMeshProUGUI errormessage;
     public GameObject connectedPanel;
@@ -126,6 +125,8 @@ public class SocketManager : MonoBehaviour
                 Debug.Log(e.Code);
                 Debug.Log(e.Reason);
                 Debug.Log("Connection Closed!");
+                GameValues.socket = null;
+                Connect();
 
             };
             Reconnect();

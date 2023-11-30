@@ -1,0 +1,57 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class MenuSceneUpdate : MonoBehaviour
+{
+    // Start is called before the first frame update
+    
+    public GameObject panel;
+    public GameObject buttonTemplate;
+    public List<GameObject> buttons;
+    void Start()
+    {
+        try
+        {
+            var getRooms = "{\"method\" : \"getRooms\"}";
+            GameValues.socket.Send(getRooms);
+        }catch (Exception){}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(GameValues.listHasChanged){
+            GameValues.listHasChanged = false;
+            foreach(Transform c in panel.transform){
+                Destroy(c.gameObject);
+            }
+            for (var i = 0; i<GameValues.rooms.Count; i++){
+                var v = GameValues.rooms[i];
+                GameObject g = Instantiate (buttonTemplate, panel.transform);
+                g.SetActive(true);
+                g.transform.GetChild (0).GetComponent <TextMeshProUGUI> ().text = v.roomName;
+                g.name = i.ToString();
+                g.GetComponent<Button>().onClick.AddListener(()=>ButtonClicked(int.Parse(g.name)));
+            }
+        }
+    }
+
+    void ButtonClicked(int i){
+        GameValues.me.roomID = GameValues.rooms[i].roomID;
+        GameValues.me.roomName = GameValues.rooms[i].roomName;
+        GameValues.me.alive = true;
+        GameValues.me.kills = 0;
+        GameValues.me.wins = 0;
+        var me = GameValues.me;
+        me.method = "joinRoom";
+        me.SendToServer();
+        SceneManager.LoadScene("Lobby");
+    }
+
+}

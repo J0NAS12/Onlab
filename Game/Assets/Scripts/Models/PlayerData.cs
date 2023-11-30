@@ -2,9 +2,8 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PlayerData
+public class PlayerData : IData
 {
-    public string method;
     public string id;
     public string roomID;
     public string roomName;

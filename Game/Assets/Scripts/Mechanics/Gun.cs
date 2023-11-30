@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour {
             speed = roundSpeed,
             timestamp = timestamp
         };
-        GameValues.socket.Send(JsonUtility.ToJson(bulletData));
+        bulletData.SendToServer();
         Rigidbody rb = spawnedRound.GetComponent<Rigidbody>();
         rb.velocity = spawnedRound.transform.forward * roundSpeed;
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 [Serializable]
 public struct MazeData
 {
-    public string method;
     public List<MazeCellData> cells;
 
 }

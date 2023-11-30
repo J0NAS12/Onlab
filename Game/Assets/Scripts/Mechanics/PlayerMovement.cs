@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
                 GameValues.me.timestamp = timestamp;
                 GameValues.me.method = "game";
                 GameValues.me.newData = true;
-                string playerDataJSON = JsonUtility.ToJson(GameValues.me);
-                GameValues.socket.Send(playerDataJSON); 
+                GameValues.me.SendToServer();
             }
             if(repeat % 100 == 0){
                 Clock.startSync();

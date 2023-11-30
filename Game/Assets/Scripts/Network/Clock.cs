@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Clock : MonoBehaviour
+public static class Clock
 {
     private static System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
 
@@ -20,13 +20,13 @@ public class Clock : MonoBehaviour
         Debug.Log("delta: "+ delta);
     }
 
-    class ClockObject{
-        public string method = "clock";
-    }
+    class ClockObject : IData{}
 
     public static void startSync(){
         startTime = (System.DateTime.UtcNow - epochStart).TotalSeconds;
-        GameValues.socket.Send(JsonUtility.ToJson(new ClockObject()));
+        new ClockObject{
+            method = "clock"
+        }.SendToServer();
         Debug.Log("startTime: " + startTime);
     }
 

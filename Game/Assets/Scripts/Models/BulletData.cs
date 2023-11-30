@@ -4,9 +4,8 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public struct BulletData
+public class BulletData : IData
 {
-    public string method;
     public PlayerData shooter;
     public Vector3 startPoint;
     public Quaternion rotation;
