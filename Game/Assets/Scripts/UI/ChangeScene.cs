@@ -8,9 +8,9 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
-    public void LobbyScene()
+    public void RoomScene()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Room");
     }
     public void MenuScene()
     {

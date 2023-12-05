@@ -2,6 +2,7 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json.Linq;
 using TMPro;
+using System;
 
 public class SocketManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SocketManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("start");
         reconnect.SetActive(false);
         errormessage.text = "";
         connectedPanel.SetActive(true);
@@ -41,7 +43,7 @@ public class SocketManager : MonoBehaviour
                 Debug.Log("Finished");
                 errormessage.text = "Couldn't connect to the server.";
                 connectedPanel.SetActive(false);
-            }
+            }  
         }
     }
 
@@ -50,9 +52,8 @@ public class SocketManager : MonoBehaviour
 
         if (GameValues.socket == null)
         {
-
             errormessage.text = "Connecting...";
-            Debug.Log("Connecting");
+            Debug.Log("Connecting to: " + "ws://" + GameValues.serverip);
             socket = new WebSocket("ws://" + GameValues.serverip);
             GameValues.socket = socket;
             //WebSocket onMessage function
@@ -126,8 +127,6 @@ public class SocketManager : MonoBehaviour
                 Debug.Log(e.Reason);
                 Debug.Log("Connection Closed!");
                 GameValues.socket = null;
-                Connect();
-
             };
             Reconnect();
 

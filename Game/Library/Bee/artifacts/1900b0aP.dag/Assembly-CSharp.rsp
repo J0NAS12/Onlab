@@ -304,7 +304,6 @@
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.VisualScripting.State.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/GameValues.cs"
-"Assets/Scripts/Map/CharacterShooting.cs"
 "Assets/Scripts/Map/IntVector2.cs"
 "Assets/Scripts/Map/MapController.cs"
 "Assets/Scripts/Map/Maze.cs"
@@ -318,6 +317,7 @@
 "Assets/Scripts/Map/MazeRoomSettings.cs"
 "Assets/Scripts/Map/MazeWall.cs"
 "Assets/Scripts/Mechanics/Bullet.cs"
+"Assets/Scripts/Mechanics/CharacterShooting.cs"
 "Assets/Scripts/Mechanics/Gun.cs"
 "Assets/Scripts/Mechanics/OpponentMovement.cs"
 "Assets/Scripts/Mechanics/PlayerMovement.cs"
@@ -331,12 +331,12 @@
 "Assets/Scripts/Models/MazeData.cs"
 "Assets/Scripts/Models/PlayerData.cs"
 "Assets/Scripts/Network/Clock.cs"
-"Assets/Scripts/Network/GameUpdate.cs"
 "Assets/Scripts/Network/SocketManager.cs"
 "Assets/Scripts/UI/ChangeScene.cs"
-"Assets/Scripts/UI/GamesListUpdate.cs"
+"Assets/Scripts/UI/GameSceneUpdate.cs"
+"Assets/Scripts/UI/MenuSceneUpdate.cs"
+"Assets/Scripts/UI/RoomSceneUpdate.cs"
 "Assets/Scripts/UI/TextFieldChange.cs"
-"Assets/Scripts/UI/UpdateStats.cs"
 -langversion:9.0
 
 /deterministic

@@ -6,8 +6,8 @@ public class OpponentMovement : MonoBehaviour
 {
     private Vector3 targetPosition;
     private Quaternion targetRotation;
-    private float interpolationDuration = 0.1f;
-    private float extrapolationDuration = 0.1f;
+    private float interpolationDuration = 0.10f;
+    private float extrapolationDuration = 0.10f;
     private float interpolationTime = 0f;
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -50,6 +50,4 @@ public class OpponentMovement : MonoBehaviour
         Vector3 extrapolatedPosition = transform.position + velocity * extrapolationDuration;
         transform.position = Vector3.Lerp(transform.position, extrapolatedPosition, Time.deltaTime / interpolationDuration);
     }
-
-
 }

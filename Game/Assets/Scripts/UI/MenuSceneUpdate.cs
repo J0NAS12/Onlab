@@ -51,7 +51,7 @@ public class MenuSceneUpdate : MonoBehaviour
         var me = GameValues.me;
         me.method = "joinRoom";
         me.SendToServer();
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Room");
     }
 
 }

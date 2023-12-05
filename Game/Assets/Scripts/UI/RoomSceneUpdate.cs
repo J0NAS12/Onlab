@@ -47,7 +47,7 @@ public class RoomSceneUpdate : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void LeaveLobby(){
+    public void LeaveRoom(){
         GameValues.me.alive = true;
         GameValues.me.kills = 0;
         GameValues.me.wins = 0;

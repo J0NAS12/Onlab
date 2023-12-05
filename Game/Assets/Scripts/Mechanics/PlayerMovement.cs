@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             GameValues.me.position = transform.position;
             GameValues.me.rotation = transform.rotation;
             GameValues.me.velocity = rb.velocity;
-            if(repeat++ % 10 == 0){
+            if(repeat++ % 5 == 0){
                 double timestamp = Clock.getTime();
                 GameValues.me.timestamp = timestamp;
                 GameValues.me.method = "game";

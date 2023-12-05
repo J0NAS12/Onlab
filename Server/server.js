@@ -170,16 +170,9 @@ wss.on('connection', function connection(client) {
     const id = {};
     id.method = "id";
     id.id = client.id;
-
     client.send(JSON.stringify(id));
-    console.log("Sent back");
-    console.log(JSON.stringify(id));
-
     let roomsJSON = JSON.stringify(getRooms());
     client.send(roomsJSON);
-    console.log("Response");
-    console.log(roomsJSON);
-
 })
 
 wss.on('listening', () => {

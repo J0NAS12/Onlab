@@ -37,7 +37,7 @@ public class GameSceneUpdate : MonoBehaviour
         Debug.Log(GameValues.roomPlayers.Count);
         GameValues.maze.cells = null;
         yield return new WaitForSeconds(5.0f);
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Room");
     }
 
 }
