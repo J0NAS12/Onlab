@@ -10,10 +10,6 @@ public class GameSceneUpdate : MonoBehaviour
     public TextMeshProUGUI spidersLeft;
     public TextMeshProUGUI winner;
     private bool started = false;
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

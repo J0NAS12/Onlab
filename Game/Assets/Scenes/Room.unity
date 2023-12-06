@@ -720,6 +720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playersList: {fileID: 1596395695}
   roomName: {fileID: 670546576}
+  startButton: {fileID: 2129545648}
 --- !u!1 &1596395693
 GameObject:
   m_ObjectHideFlags: 0

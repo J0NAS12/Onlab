@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RoomSceneUpdate : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class RoomSceneUpdate : MonoBehaviour
 
     public TextMeshProUGUI playersList;
     public TextMeshProUGUI roomName;
+
+    public Button startButton;
     void Start()
     {
         if(GameValues.me.roomID == null){
@@ -35,11 +38,19 @@ public class RoomSceneUpdate : MonoBehaviour
         if(GameValues.playersChanged){
             GameValues.playersChanged = false;
             roomName.text = GameValues.me.roomName;
-            string list = "Players:\tKills\tWins\n";
+            string list = $"{"Players",-15}\tKills\tWins\n";
             foreach(var p in GameValues.roomPlayers){
-                list += p.name + "\t" + p.kills + "\t" + p.wins + "\n";
+                list += $"{p.name,-15}\t{p.kills,-5}\t{p.wins,-4}\n";
             }
             playersList.text = list;
+            if(GameValues.roomPlayers.Count > 1)
+            {
+                startButton.interactable = true;
+            }
+            else
+            {
+                startButton.interactable = false;
+            }
         }
     }
 

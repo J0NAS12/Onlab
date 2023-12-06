@@ -4,7 +4,6 @@ using UnityEngine;
 public class Target : MonoBehaviour {
     public bool destroyable = true;
     public float health;
-
     private int lasthit;
 
 

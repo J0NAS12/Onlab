@@ -21,11 +21,6 @@ public class SocketManager : MonoBehaviour
         Connect();
     }
 
-    private void OnDestroy()
-    {
-        //Close socket when exiting application
-        //socket.Close();
-    }
 
     public void Reconnect(){
         try{
@@ -122,14 +117,12 @@ public class SocketManager : MonoBehaviour
             //If server connection closes (not client originated)
             socket.OnClose += (sender, e) =>
             {
-
                 Debug.Log(e.Code);
                 Debug.Log(e.Reason);
                 Debug.Log("Connection Closed!");
                 GameValues.socket = null;
             };
             Reconnect();
-
         }
     }
 
